@@ -1,0 +1,5 @@
+export { Display } from "./Display";
+export { Heading } from "./Heading";
+export { Body } from "./Body";
+export { Caption } from "./Caption";
+export { Label } from "./Label";

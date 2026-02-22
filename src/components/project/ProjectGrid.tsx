@@ -1,0 +1,75 @@
+"use client";
+
+import Link from "next/link";
+import { ProjectCard } from "./ProjectCard";
+import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { Caption, Label } from "@/components/typography";
+import { Divider } from "@/components/ui/Divider";
+import { useTranslation } from "@/hooks/useTranslation";
+import type { Project, ProjectViewMode } from "@/types";
+
+interface ProjectGridProps {
+  projects: Project[];
+  viewMode: ProjectViewMode;
+}
+
+export function ProjectGrid({ projects, viewMode }: ProjectGridProps) {
+  const { t } = useTranslation();
+
+  if (viewMode === "list") {
+    return (
+      <div>
+        <div className="hidden sm:grid grid-cols-12 gap-x-[var(--grid-gutter)] pb-3">
+          <div className="col-span-4">
+            <Label>Project</Label>
+          </div>
+          <div className="col-span-3">
+            <Label>{t.projects.typology}</Label>
+          </div>
+          <div className="col-span-3">
+            <Label>{t.projects.location}</Label>
+          </div>
+          <div className="col-span-2 text-right">
+            <Label>{t.projects.year}</Label>
+          </div>
+        </div>
+        <Divider className="mb-0" />
+        {projects.map((project, i) => (
+          <ScrollReveal key={project.slug} delay={i * 0.05}>
+            <Link
+              href={`/projects/${project.slug}`}
+              className="group block"
+            >
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-[var(--grid-gutter)] py-4 sm:py-5 border-b border-gray-200 transition-colors duration-300 hover:bg-gray-100/50">
+                <div className="sm:col-span-4">
+                  <span className="text-[clamp(0.9375rem,0.5vw+0.8rem,1.0625rem)] font-medium text-gray-900">
+                    {project.title}
+                  </span>
+                </div>
+                <div className="sm:col-span-3 mt-1 sm:mt-0 flex items-center">
+                  <Caption>{t.projects[project.typology]}</Caption>
+                </div>
+                <div className="sm:col-span-3 flex items-center">
+                  <Caption>{project.location}</Caption>
+                </div>
+                <div className="sm:col-span-2 flex items-center sm:justify-end">
+                  <Caption>{project.year}</Caption>
+                </div>
+              </div>
+            </Link>
+          </ScrollReveal>
+        ))}
+      </div>
+    );
+  }
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-[var(--grid-gutter)] gap-y-12 sm:gap-y-16">
+      {projects.map((project, i) => (
+        <ScrollReveal key={project.slug} delay={i * 0.1}>
+          <ProjectCard project={project} />
+        </ScrollReveal>
+      ))}
+    </div>
+  );
+}

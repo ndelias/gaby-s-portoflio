@@ -1,0 +1,84 @@
+import type { Translations } from "@/types";
+
+export const translations: Translations = {
+  en: {
+    nav: {
+      projects: "Projects",
+      about: "About",
+    },
+    home: {
+      selectedWork: "Selected Work",
+      viewAll: "View All Projects",
+      immersive: "Immersive",
+      compact: "Compact",
+    },
+    projects: {
+      title: "Projects",
+      all: "All",
+      residential: "Residential",
+      cultural: "Cultural",
+      academic: "Academic",
+      commercial: "Commercial",
+      public: "Public",
+      grid: "Grid",
+      list: "List",
+      typology: "Typology",
+      location: "Location",
+      year: "Year",
+      status: "Status",
+      area: "Area",
+      client: "Client",
+      previousProject: "Previous Project",
+      nextProject: "Next Project",
+    },
+    about: {
+      title: "About",
+      education: "Education",
+      experience: "Experience",
+      contact: "Contact",
+    },
+    common: {
+      backToTop: "Back to Top",
+    },
+  },
+  es: {
+    nav: {
+      projects: "Proyectos",
+      about: "Acerca",
+    },
+    home: {
+      selectedWork: "Trabajo Seleccionado",
+      viewAll: "Ver Todos los Proyectos",
+      immersive: "Inmersivo",
+      compact: "Compacto",
+    },
+    projects: {
+      title: "Proyectos",
+      all: "Todos",
+      residential: "Residencial",
+      cultural: "Cultural",
+      academic: "Academico",
+      commercial: "Comercial",
+      public: "Publico",
+      grid: "Cuadricula",
+      list: "Lista",
+      typology: "Tipologia",
+      location: "Ubicacion",
+      year: "Ano",
+      status: "Estado",
+      area: "Area",
+      client: "Cliente",
+      previousProject: "Proyecto Anterior",
+      nextProject: "Proyecto Siguiente",
+    },
+    about: {
+      title: "Acerca",
+      education: "Educacion",
+      experience: "Experiencia",
+      contact: "Contacto",
+    },
+    common: {
+      backToTop: "Volver Arriba",
+    },
+  },
+};

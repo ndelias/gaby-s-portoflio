@@ -1,0 +1,75 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-black: #0A0A0A;
+  --color-white: #FAFAFA;
+  --color-gray-900: #1A1A1A;
+  --color-gray-700: #404040;
+  --color-gray-500: #737373;
+  --color-gray-300: #D4D4D4;
+  --color-gray-200: #E5E5E5;
+  --color-gray-100: #F0F0F0;
+
+  --font-sans: var(--font-inter);
+}
+
+:root {
+  --grid-columns: 4;
+  --grid-gutter: 16px;
+  --grid-margin: 20px;
+  --grid-max-width: 100%;
+
+  --section-gap-sm: 96px;
+  --section-gap-md: 144px;
+  --section-gap-lg: 192px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --grid-columns: 8;
+    --grid-gutter: 20px;
+    --grid-margin: 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --grid-columns: 12;
+    --grid-gutter: 24px;
+    --grid-margin: 60px;
+  }
+}
+
+@media (min-width: 1440px) {
+  :root {
+    --grid-columns: 12;
+    --grid-gutter: 32px;
+    --grid-margin: 80px;
+    --grid-max-width: 1440px;
+  }
+}
+
+body {
+  background-color: var(--color-white);
+  color: var(--color-gray-900);
+  font-family: var(--font-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection */
+::selection {
+  background-color: var(--color-gray-900);
+  color: var(--color-white);
+}
+
+/* Smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Remove default focus outline, add custom */
+*:focus-visible {
+  outline: 1px solid var(--color-gray-900);
+  outline-offset: 2px;
+}
