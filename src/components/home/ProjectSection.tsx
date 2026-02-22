@@ -110,14 +110,14 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
         {/* Mobile/tablet: always visible metadata */}
         <div className="lg:hidden pt-4 pb-4 px-6 flex flex-col gap-3">
           <div>
-            <h2 className="text-[clamp(1rem,1vw+0.5rem,1.25rem)] font-semibold tracking-[-0.02em] text-gray-900">
+            <h2 className="text-[clamp(1rem,1vw+0.5rem,1.25rem)] font-semibold tracking-[-0.02em] text-gray-900 group-hover:text-pink transition-colors duration-300">
               {project.title}
             </h2>
-            <p className="text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-normal text-gray-500 mt-1 line-clamp-1">
+            <p className="text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-normal text-gray-500 mt-1 line-clamp-1 group-hover:text-pink/60 transition-colors duration-300">
               {project.excerpt[locale]}
             </p>
           </div>
-          <span className="self-start px-4 py-1.5 border border-gray-300 text-[0.6875rem] uppercase tracking-[0.15em] text-gray-500">
+          <span className="self-start px-4 py-1.5 border border-gray-300 text-[0.6875rem] uppercase tracking-[0.15em] text-gray-500 group-hover:text-pink group-hover:border-pink transition-colors duration-300">
             Read More
           </span>
         </div>

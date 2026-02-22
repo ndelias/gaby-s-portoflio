@@ -44,7 +44,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
             className={`text-left text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-medium uppercase tracking-[0.1em] transition-colors duration-300 py-1.5 ${
               activeSlug === project.slug
                 ? "text-gray-900"
-                : "text-gray-300 hover:text-gray-500"
+                : "text-gray-300 hover:text-pink"
             }`}
           >
             {project.title}
@@ -66,7 +66,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
               className={`text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-medium uppercase tracking-[0.1em] transition-colors duration-300 shrink-0 ${
                 activeSlug === project.slug
                   ? "text-gray-900"
-                  : "text-gray-300 hover:text-gray-500"
+                  : "text-gray-300 hover:text-pink"
               }`}
             >
               {project.title}

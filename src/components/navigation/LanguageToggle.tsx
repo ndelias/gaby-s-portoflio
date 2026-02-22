@@ -19,7 +19,7 @@ export function LanguageToggle() {
               "text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-medium uppercase tracking-[0.1em] transition-colors duration-300",
               locale === lang
                 ? "text-gray-900"
-                : "text-gray-500 hover:text-gray-900"
+                : "text-gray-500 hover:text-pink"
             )}
             aria-label={`Switch to ${lang === "en" ? "English" : "Spanish"}`}
           >

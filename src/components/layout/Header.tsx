@@ -27,13 +27,16 @@ export function Header() {
     return () => window.removeEventListener("resize", reportRect);
   }, [reportRect]);
 
-  const logoVisible = phase === "idle" || phase === "complete";
+  const animationDone = phase === "idle" || phase === "complete";
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-white">
       <GridContainer>
         <nav className="grid grid-cols-3 items-center h-16 sm:h-20">
-          <div className="justify-self-start">
+          <div
+            className="justify-self-start transition-opacity duration-500"
+            style={{ opacity: animationDone ? 1 : 0 }}
+          >
             <NavLink href="/">
               {t.nav.home}
             </NavLink>
@@ -48,14 +51,17 @@ export function Header() {
                 width={88}
                 height={52}
                 className="transition-opacity duration-300"
-                style={{ opacity: logoVisible ? 1 : 0 }}
+                style={{ opacity: animationDone ? 1 : 0 }}
                 unoptimized
                 priority
               />
             </Link>
           </div>
 
-          <div className="flex items-center justify-end gap-6 sm:gap-8">
+          <div
+            className="flex items-center justify-end gap-6 sm:gap-8 transition-opacity duration-500"
+            style={{ opacity: animationDone ? 1 : 0 }}
+          >
             {navigationItems.map((item) => (
               <NavLink key={item.href} href={item.href}>
                 {t.nav[item.labelKey]}
