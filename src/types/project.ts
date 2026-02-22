@@ -22,6 +22,10 @@ export interface Project {
     en: string;
     es: string;
   };
+  excerpt: {
+    en: string;
+    es: string;
+  };
   typology: ProjectTypology;
   location: string;
   year: string;

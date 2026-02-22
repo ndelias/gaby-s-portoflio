@@ -3,6 +3,7 @@ import type { Translations } from "@/types";
 export const translations: Translations = {
   en: {
     nav: {
+      home: "Home",
       projects: "Projects",
       about: "About",
     },
@@ -43,6 +44,7 @@ export const translations: Translations = {
   },
   es: {
     nav: {
+      home: "Inicio",
       projects: "Proyectos",
       about: "Acerca",
     },

@@ -1,0 +1,251 @@
+<HTML>
+ <HEAD>
+  <TITLE>glb 1</TITLE>
+ </HEAD>
+ <BODY onLoad="Load()">
+ <FONT FACE=VERDANA SIZE=2><B>glb 1</B><BR>
+	<IMG BORDER=1 STYLE="border-color:black" ID="animated_image"><BR>
+<FONT FACE=COURIER SIZE=2>
+<SPAN ID="frame_title" STYLE="position:relative;left:0;top:-15;color:black;background-color:white;padding:1px;border-width:1px;border-style:solid;border-color:black;display:inline;"></SPAN>
+&nbsp;</FONT><BR>
+  <BUTTON ID="btnToggle" onClick="start_stop()" onDblClick="start_stop()">Stop</BUTTON>&nbsp;
+<BUTTON ID="btnFirst" onClick="firstFrame()" onDblClick="firstFrame()" STYLE="width:35">&lt;&lt;</BUTTON>&nbsp;
+  <BUTTON ID="btnPrev" onClick="prevFrame()" onDblClick="prevFrame()" STYLE="width:35">&lt;</BUTTON>&nbsp;
+  <BUTTON ID="btnNext" onClick="nextFrame()" onDblClick="nextFrame()" STYLE="width:35">&gt;</BUTTON>&nbsp;
+  <BUTTON ID="btnLast" onClick="lastFrame()" onDblClick="lastFrame()" STYLE="width:35">&gt;&gt;</BUTTON>
+  <FONT SIZE=1>
+  <BR><BR>&nbsp;&nbsp;&nbsp;<INPUT ID="checkLoop"" TYPE="checkbox" style="width:13;height:13;">Loop continuously
+  <BR>&nbsp;&nbsp;&nbsp;<INPUT ID="checkCounter" TYPE="checkbox" CHECKED onClick="showCounter(this.checked)" style="width:13;height:13;">Show frame counter
+  </FONT>
+  <P>
+  <FONT COLOR=888888 SIZE=1>Animation created in <a target="_blank" href="https://urldefense.com/v3/__http://www.rhino3d.com__;!!LIr3w8kk_Xxm!oLj46HWSHsPyCq66HycLXxsclMLSi_Rgy0JDID_EZHy2cKBeMgfAuQ6tVk6IJjCPfzSzjOz_WD2qCv23$"><FONT COLOR=7777ff SIZE=1>Rhino</FONT></A>.</FONT>
+ </BODY>
+</HTML>
+
+<STYLE>
+  button {width:75;height:25;font-family:mssansserif;font-size:8pt}
+</STYLE>
+<SCRIPT LANGUAGE="JavaScript">
+  var FRAME_DELAY = 75;
+  var timeoutID;
+  var ImageCount = 100;
+  var Images = new Array();
+  for( i=0; i < ImageCount; i++ )
+  	Images[i] = new Image();
+
+  var currentImageIndex = 0;
+  var bDisplayDate = 0;
+  var Dates = new Array(0);
+Images[0].src = "glb 1_00000.png";
+Images[1].src = "glb 1_00001.png";
+Images[2].src = "glb 1_00002.png";
+Images[3].src = "glb 1_00003.png";
+Images[4].src = "glb 1_00004.png";
+Images[5].src = "glb 1_00005.png";
+Images[6].src = "glb 1_00006.png";
+Images[7].src = "glb 1_00007.png";
+Images[8].src = "glb 1_00008.png";
+Images[9].src = "glb 1_00009.png";
+Images[10].src = "glb 1_00010.png";
+Images[11].src = "glb 1_00011.png";
+Images[12].src = "glb 1_00012.png";
+Images[13].src = "glb 1_00013.png";
+Images[14].src = "glb 1_00014.png";
+Images[15].src = "glb 1_00015.png";
+Images[16].src = "glb 1_00016.png";
+Images[17].src = "glb 1_00017.png";
+Images[18].src = "glb 1_00018.png";
+Images[19].src = "glb 1_00019.png";
+Images[20].src = "glb 1_00020.png";
+Images[21].src = "glb 1_00021.png";
+Images[22].src = "glb 1_00022.png";
+Images[23].src = "glb 1_00023.png";
+Images[24].src = "glb 1_00024.png";
+Images[25].src = "glb 1_00025.png";
+Images[26].src = "glb 1_00026.png";
+Images[27].src = "glb 1_00027.png";
+Images[28].src = "glb 1_00028.png";
+Images[29].src = "glb 1_00029.png";
+Images[30].src = "glb 1_00030.png";
+Images[31].src = "glb 1_00031.png";
+Images[32].src = "glb 1_00032.png";
+Images[33].src = "glb 1_00033.png";
+Images[34].src = "glb 1_00034.png";
+Images[35].src = "glb 1_00035.png";
+Images[36].src = "glb 1_00036.png";
+Images[37].src = "glb 1_00037.png";
+Images[38].src = "glb 1_00038.png";
+Images[39].src = "glb 1_00039.png";
+Images[40].src = "glb 1_00040.png";
+Images[41].src = "glb 1_00041.png";
+Images[42].src = "glb 1_00042.png";
+Images[43].src = "glb 1_00043.png";
+Images[44].src = "glb 1_00044.png";
+Images[45].src = "glb 1_00045.png";
+Images[46].src = "glb 1_00046.png";
+Images[47].src = "glb 1_00047.png";
+Images[48].src = "glb 1_00048.png";
+Images[49].src = "glb 1_00049.png";
+Images[50].src = "glb 1_00050.png";
+Images[51].src = "glb 1_00051.png";
+Images[52].src = "glb 1_00052.png";
+Images[53].src = "glb 1_00053.png";
+Images[54].src = "glb 1_00054.png";
+Images[55].src = "glb 1_00055.png";
+Images[56].src = "glb 1_00056.png";
+Images[57].src = "glb 1_00057.png";
+Images[58].src = "glb 1_00058.png";
+Images[59].src = "glb 1_00059.png";
+Images[60].src = "glb 1_00060.png";
+Images[61].src = "glb 1_00061.png";
+Images[62].src = "glb 1_00062.png";
+Images[63].src = "glb 1_00063.png";
+Images[64].src = "glb 1_00064.png";
+Images[65].src = "glb 1_00065.png";
+Images[66].src = "glb 1_00066.png";
+Images[67].src = "glb 1_00067.png";
+Images[68].src = "glb 1_00068.png";
+Images[69].src = "glb 1_00069.png";
+Images[70].src = "glb 1_00070.png";
+Images[71].src = "glb 1_00071.png";
+Images[72].src = "glb 1_00072.png";
+Images[73].src = "glb 1_00073.png";
+Images[74].src = "glb 1_00074.png";
+Images[75].src = "glb 1_00075.png";
+Images[76].src = "glb 1_00076.png";
+Images[77].src = "glb 1_00077.png";
+Images[78].src = "glb 1_00078.png";
+Images[79].src = "glb 1_00079.png";
+Images[80].src = "glb 1_00080.png";
+Images[81].src = "glb 1_00081.png";
+Images[82].src = "glb 1_00082.png";
+Images[83].src = "glb 1_00083.png";
+Images[84].src = "glb 1_00084.png";
+Images[85].src = "glb 1_00085.png";
+Images[86].src = "glb 1_00086.png";
+Images[87].src = "glb 1_00087.png";
+Images[88].src = "glb 1_00088.png";
+Images[89].src = "glb 1_00089.png";
+Images[90].src = "glb 1_00090.png";
+Images[91].src = "glb 1_00091.png";
+Images[92].src = "glb 1_00092.png";
+Images[93].src = "glb 1_00093.png";
+Images[94].src = "glb 1_00094.png";
+Images[95].src = "glb 1_00095.png";
+Images[96].src = "glb 1_00096.png";
+Images[97].src = "glb 1_00097.png";
+Images[98].src = "glb 1_00098.png";
+Images[99].src = "glb 1_00099.png";
+
+
+
+  function Load() {
+    begin_animation();
+  }
+
+  function begin_animation() {
+    stop_animation();
+  	EnableCtrls("stop");
+  	run();
+        bRunning = true;
+  }
+
+  function stop_animation() {
+  	EnableCtrls("start");
+  	clearTimeout( timeoutID );
+        bRunning = false;
+  }
+
+  function start_stop() {
+    if (bRunning) {
+      stop_animation();
+    }
+    else {
+      begin_animation();
+    }
+  }
+
+  function run() {
+  	if (nextFrame())
+    	timeoutID = setTimeout( "run()", FRAME_DELAY );
+  }
+
+  function firstFrame() {
+	currentImageIndex = 0;
+  	document.all.animated_image.src = Images[currentImageIndex].src;
+  	DisplayCaption(currentImageIndex)
+  }
+
+  function prevFrame() {
+  	currentImageIndex--;
+  	if( currentImageIndex < 0 )
+  		currentImageIndex= Images.length - 1;
+  	document.all.animated_image.src = Images[currentImageIndex].src;
+  	DisplayCaption(currentImageIndex)
+  }
+
+  function nextFrame() {
+  	currentImageIndex++;
+  	bRetVal = true;
+  	if( currentImageIndex >= Images.length ) {
+  	  if (document.all('checkLoop').checked) {
+    		currentImageIndex = 0;
+  	  }
+  	  else {
+  	    stop_animation();
+  	    currentImageIndex = 0;
+  	    bRetVal = false;
+        return bRetVal;
+  	  }
+  	}
+  	document.all.animated_image.src = Images[currentImageIndex].src;
+  	DisplayCaption(currentImageIndex)
+  	return bRetVal;
+  }
+
+  function lastFrame() {
+	currentImageIndex = Images.length - 1;
+  	document.all.animated_image.src = Images[currentImageIndex].src;
+  	DisplayCaption(currentImageIndex)
+  }
+
+ function DisplayCaption(nFrameNumber) {
+	  document.all.frame_title.innerHTML =  (nFrameNumber + 1)
+ if (bDisplayDate) {
+    	document.all.frame_title.innerHTML = Dates[nFrameNumber];
+ }
+  }
+
+
+  function EnableCtrls(sCtl) {
+	if (sCtl == "stop") {
+		//document.all("btnStop").disabled = false;
+		//document.all("btnStart").disabled = true;
+
+		document.all("btnFirst").disabled = true; 
+		document.all("btnPrev").disabled = true; 
+		document.all("btnNext").disabled = true; 
+		document.all("btnLast").disabled = true; 
+                document.all("btnToggle").innerText = "Stop";
+	}
+	if (sCtl == "start") {
+		//document.all("btnStop").disabled = true; 
+		//document.all("btnStart").disabled = false;
+
+		document.all("btnFirst").disabled = false;
+		document.all("btnPrev").disabled = false;
+		document.all("btnNext").disabled = false;
+		document.all("btnLast").disabled = false;
+                document.all("btnToggle").innerText = "Start";
+	}
+  }
+
+  function showCounter(bShow) {
+    if (bShow) {
+      document.all('frame_title').style.display = "inline";
+    }
+    else {
+      document.all('frame_title').style.display = "none";
+    }
+  }
+</SCRIPT>

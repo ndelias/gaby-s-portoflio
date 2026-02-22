@@ -2,6 +2,7 @@ export type Locale = "en" | "es";
 
 export interface TranslationStrings {
   nav: {
+    home: string;
     projects: string;
     about: string;
   };
