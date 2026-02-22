@@ -55,8 +55,6 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
   const innerRef = useRef<HTMLDivElement>(null);
   const outerRef = useScrollReveal(innerRef);
 
-  const typologyLabel = project.typology.charAt(0).toUpperCase() + project.typology.slice(1);
-
   return (
     <div
       id={`project-${project.slug}`}
@@ -88,46 +86,40 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
 
             {/* Desktop hover overlay */}
             <div
-              className="hidden lg:flex absolute inset-0 flex-col items-center justify-center text-center transition-opacity duration-300 ease-out"
+              className="hidden lg:block absolute inset-0 transition-opacity duration-[250ms] ease-out"
               style={{ opacity: hovered ? 1 : 0 }}
             >
-              <div className="absolute inset-0 bg-black/50" />
-              <div className="relative z-10 px-8 max-w-lg">
-                <h2 className="text-[clamp(1.25rem,1.5vw+0.5rem,1.75rem)] font-semibold tracking-[-0.02em] text-white">
-                  {project.title}
-                </h2>
-                <p className="text-[clamp(0.75rem,0.3vw+0.65rem,0.875rem)] font-normal text-white/80 mt-3 leading-relaxed">
-                  {project.excerpt[locale]}
-                </p>
-                <div className="flex items-center justify-center gap-3 mt-4">
-                  <span className="text-[0.6875rem] uppercase tracking-[0.1em] text-white/60">
-                    {typologyLabel}
-                  </span>
-                  <span className="text-white/30">&middot;</span>
-                  <span className="text-[0.6875rem] uppercase tracking-[0.1em] text-white/60">
-                    {project.location}
-                  </span>
-                  <span className="text-white/30">&middot;</span>
-                  <span className="text-[0.6875rem] uppercase tracking-[0.1em] text-white/60">
-                    {project.year}
-                  </span>
+              <div className="absolute inset-0 bg-black/70" />
+              <div className="absolute inset-0 p-12 xl:p-16 flex items-end justify-between">
+                <div>
+                  <h2 className="text-[clamp(1.25rem,1.5vw+0.5rem,1.75rem)] font-semibold tracking-[-0.02em] text-white">
+                    {project.title}
+                  </h2>
+                  <p className="text-[clamp(0.75rem,0.3vw+0.65rem,0.875rem)] font-normal text-white/60 mt-1.5 line-clamp-1">
+                    {project.excerpt[locale]}
+                  </p>
                 </div>
-                <button className="mt-6 px-6 py-2.5 border border-white/70 text-[0.75rem] uppercase tracking-[0.15em] text-white hover:bg-white hover:text-gray-900 transition-colors duration-300">
+                <span className="shrink-0 ml-8 px-5 py-2 border border-white/40 text-[0.6875rem] uppercase tracking-[0.15em] text-white/90 hover:bg-white hover:text-gray-800 hover:border-white transition-colors duration-200">
                   Read More
-                </button>
+                </span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Mobile/tablet: always visible metadata */}
-        <div className="lg:hidden pt-4 pb-4 px-6">
-          <h2 className="text-[clamp(1rem,1vw+0.5rem,1.25rem)] font-semibold tracking-[-0.02em] text-gray-900">
-            {project.title}
-          </h2>
-          <p className="text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-normal text-gray-500 mt-1 leading-relaxed">
-            {project.excerpt[locale]}
-          </p>
+        <div className="lg:hidden pt-4 pb-4 px-6 flex flex-col gap-3">
+          <div>
+            <h2 className="text-[clamp(1rem,1vw+0.5rem,1.25rem)] font-semibold tracking-[-0.02em] text-gray-900">
+              {project.title}
+            </h2>
+            <p className="text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-normal text-gray-500 mt-1 line-clamp-1">
+              {project.excerpt[locale]}
+            </p>
+          </div>
+          <span className="self-start px-4 py-1.5 border border-gray-300 text-[0.6875rem] uppercase tracking-[0.15em] text-gray-500">
+            Read More
+          </span>
         </div>
       </Link>
     </div>
