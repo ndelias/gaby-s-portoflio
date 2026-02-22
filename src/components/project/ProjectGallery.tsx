@@ -36,7 +36,10 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
           const img = row[0];
           return (
             <ScrollReveal key={rowIndex}>
-              <div className="relative aspect-[3/2] bg-gray-100">
+              <div
+                className="relative w-full"
+                style={{ aspectRatio: `${img.width} / ${img.height}` }}
+              >
                 <Image
                   src={img.src}
                   alt={img.alt}
@@ -52,11 +55,14 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
         return (
           <div
             key={rowIndex}
-            className="grid grid-cols-1 sm:grid-cols-2 gap-[var(--grid-gutter)]"
+            className="grid grid-cols-1 sm:grid-cols-2 gap-[var(--grid-gutter)] items-start"
           >
             {row.map((img, imgIndex) => (
               <ScrollReveal key={imgIndex} delay={imgIndex * 0.1}>
-                <div className="relative aspect-[3/2] bg-gray-100">
+                <div
+                  className="relative w-full"
+                  style={{ aspectRatio: `${img.width} / ${img.height}` }}
+                >
                   <Image
                     src={img.src}
                     alt={img.alt}
