@@ -36,7 +36,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
   return (
     <>
       {/* Desktop: fixed left column */}
-      <nav className="fixed left-0 top-20 bottom-0 w-[200px] z-40 hidden lg:flex flex-col justify-center pl-10">
+      <nav className="fixed left-0 top-20 bottom-0 w-[240px] z-40 hidden lg:flex flex-col justify-start pt-12 pl-10 pr-6 bg-white">
         {projects.map((project) => (
           <button
             key={project.slug}
