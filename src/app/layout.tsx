@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { inter } from "@/lib/fonts";
 import { LocaleProvider } from "@/providers/LocaleProvider";
 import { ViewModeProvider } from "@/providers/ViewModeProvider";
+import { LogoAnimationProvider } from "@/providers/LogoAnimationProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { siteMetadata } from "@/data/metadata";
@@ -25,11 +26,13 @@ export default function RootLayout({
       <body className={`${inter.variable} antialiased`}>
         <LocaleProvider>
           <ViewModeProvider>
-            <Header />
-            <main className="min-h-screen pt-16 sm:pt-20">
-              {children}
-            </main>
-            <Footer />
+            <LogoAnimationProvider>
+              <Header />
+              <main className="min-h-screen pt-16 sm:pt-20">
+                {children}
+              </main>
+              <Footer />
+            </LogoAnimationProvider>
           </ViewModeProvider>
         </LocaleProvider>
       </body>

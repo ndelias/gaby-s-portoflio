@@ -55,7 +55,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
       {/* Mobile/Tablet: fixed horizontal strip below header */}
       <div
         ref={mobileRef}
-        className="fixed left-0 right-0 top-16 sm:top-20 z-40 lg:hidden bg-white/95 backdrop-blur-sm border-b border-gray-100 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="fixed left-0 right-0 top-16 sm:top-20 z-40 lg:hidden bg-white border-b border-gray-100 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         <div className="flex gap-5 px-[var(--grid-margin)] py-3 whitespace-nowrap">
           {projects.map((project) => (
