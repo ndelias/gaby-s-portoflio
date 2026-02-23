@@ -33,7 +33,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <>
-      <ProjectHero image={project.heroImage} title={project.title} />
+      <ProjectHero image={project.heroImage} />
 
       <Section gap="md">
         <GridContainer>
@@ -79,7 +79,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                   <Label className="mb-2 block">
                     {t.projects.previousProject}
                   </Label>
-                  <span className="text-[clamp(0.9375rem,0.5vw+0.8rem,1.0625rem)] font-medium text-gray-900 group-hover:text-pink transition-colors duration-300">
+                  <span className="text-[clamp(0.9375rem,0.5vw+0.8rem,1.0625rem)] font-medium text-gray-900 group-hover:text-blush transition-colors duration-300">
                     {previous.title}
                   </span>
                 </Link>
@@ -94,7 +94,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                   <Label className="mb-2 block">
                     {t.projects.nextProject}
                   </Label>
-                  <span className="text-[clamp(0.9375rem,0.5vw+0.8rem,1.0625rem)] font-medium text-gray-900 group-hover:text-pink transition-colors duration-300">
+                  <span className="text-[clamp(0.9375rem,0.5vw+0.8rem,1.0625rem)] font-medium text-gray-900 group-hover:text-blush transition-colors duration-300">
                     {next.title}
                   </span>
                 </Link>

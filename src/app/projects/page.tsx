@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { GridContainer } from "@/components/layout/GridContainer";
 import { Section } from "@/components/layout/Section";
 import { ProjectFilter, type FilterCategory } from "@/components/project/ProjectFilter";
@@ -22,10 +22,13 @@ export default function ProjectsPage() {
     return projects.filter((p) => p.typology === activeFilter);
   }, [activeFilter]);
 
-  const viewOptions: { value: ProjectViewMode; label: string }[] = [
-    { value: "grid", label: t.projects.grid },
-    { value: "list", label: t.projects.list },
-  ];
+  const viewOptions = useMemo<{ value: ProjectViewMode; label: string }[]>(
+    () => [
+      { value: "grid", label: t.projects.grid },
+      { value: "list", label: t.projects.list },
+    ],
+    [t.projects.grid, t.projects.list]
+  );
 
   return (
     <Section gap="sm">

@@ -4,8 +4,7 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LogoSequencePlayer } from "./LogoSequencePlayer";
 import { useLogoAnimation } from "@/hooks/useLogoAnimation";
-
-const STORAGE_KEY = "portfolio-has-visited";
+import { VISITED_STORAGE_KEY } from "@/lib/constants";
 
 // Dimensions of the sequence canvas (CSS px)
 const SEQUENCE_WIDTH = 1000;
@@ -47,7 +46,7 @@ export function LoadingScreen() {
 
   // After transition animation completes
   const onTransitionComplete = useCallback(() => {
-    sessionStorage.setItem(STORAGE_KEY, "true");
+    sessionStorage.setItem(VISITED_STORAGE_KEY, "true");
     const timeout = setTimeout(() => {
       setVisible(false);
       setPhase("complete");

@@ -5,10 +5,9 @@ import type { ProjectImage } from "@/types";
 
 interface ProjectHeroProps {
   image: ProjectImage;
-  title: string;
 }
 
-export function ProjectHero({ image, title }: ProjectHeroProps) {
+export function ProjectHero({ image }: ProjectHeroProps) {
   return (
     <div className="relative w-full h-[60vh] sm:h-[70vh] lg:h-[80vh] bg-gray-100">
       <Image

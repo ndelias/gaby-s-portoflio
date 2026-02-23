@@ -16,7 +16,7 @@ export function Footer() {
           </p>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-medium uppercase tracking-[0.1em] text-gray-500 hover:text-pink transition-colors duration-300"
+            className="text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-medium uppercase tracking-[0.1em] text-gray-500 hover:text-blush transition-all duration-300 underline underline-offset-4 decoration-transparent hover:decoration-blush"
           >
             Back to Top
           </button>

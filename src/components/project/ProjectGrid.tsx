@@ -42,7 +42,7 @@ export function ProjectGrid({ projects, viewMode }: ProjectGridProps) {
             >
               <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-[var(--grid-gutter)] py-4 sm:py-5 border-b border-gray-200 transition-colors duration-300 hover:bg-gray-100/50">
                 <div className="sm:col-span-4">
-                  <span className="text-[clamp(0.9375rem,0.5vw+0.8rem,1.0625rem)] font-medium text-gray-900">
+                  <span className="text-[clamp(0.9375rem,0.5vw+0.8rem,1.0625rem)] font-medium text-gray-900 group-hover:text-blush transition-colors duration-300">
                     {project.title}
                   </span>
                 </div>

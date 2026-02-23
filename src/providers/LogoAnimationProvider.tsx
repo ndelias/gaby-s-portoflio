@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useState, useEffect } from "react";
+import { VISITED_STORAGE_KEY } from "@/lib/constants";
 
 export type LogoAnimationPhase =
   | "idle"
@@ -23,8 +24,6 @@ export const LogoAnimationContext = createContext<LogoAnimationContextValue>({
   setNavbarLogoRect: () => {},
 });
 
-const STORAGE_KEY = "portfolio-has-visited";
-
 export function LogoAnimationProvider({
   children,
 }: {
@@ -37,7 +36,7 @@ export function LogoAnimationProvider({
   const [navbarLogoRect, setNavbarLogoRect] = useState<DOMRect | null>(null);
 
   useEffect(() => {
-    const hasVisited = sessionStorage.getItem(STORAGE_KEY);
+    const hasVisited = sessionStorage.getItem(VISITED_STORAGE_KEY);
     if (hasVisited) {
       setPhaseState("idle");
     }

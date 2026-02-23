@@ -36,7 +36,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
   return (
     <>
       {/* Desktop: fixed left column */}
-      <nav className="fixed left-0 top-20 bottom-0 w-[240px] z-40 hidden lg:flex flex-col justify-start pt-12 pl-10 pr-6 bg-white">
+      <nav className="fixed left-0 top-20 bottom-0 w-[240px] z-[45] hidden lg:flex flex-col justify-start pt-12 pl-10 pr-6 bg-white">
         {projects.map((project) => (
           <button
             key={project.slug}
@@ -44,7 +44,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
             className={`text-left text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-medium uppercase tracking-[0.1em] transition-colors duration-300 py-1.5 ${
               activeSlug === project.slug
                 ? "text-gray-900"
-                : "text-gray-300 hover:text-pink"
+                : "text-gray-300 hover:text-blush"
             }`}
           >
             {project.title}
@@ -55,7 +55,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
       {/* Mobile/Tablet: fixed horizontal strip below header */}
       <div
         ref={mobileRef}
-        className="fixed left-0 right-0 top-16 sm:top-20 z-40 lg:hidden bg-white border-b border-gray-100 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+        className="fixed left-0 right-0 top-16 sm:top-20 z-[45] lg:hidden bg-white border-b border-gray-100 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
         <div className="flex gap-5 px-[var(--grid-margin)] py-3 whitespace-nowrap">
           {projects.map((project) => (
@@ -66,7 +66,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
               className={`text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-medium uppercase tracking-[0.1em] transition-colors duration-300 shrink-0 ${
                 activeSlug === project.slug
                   ? "text-gray-900"
-                  : "text-gray-300 hover:text-pink"
+                  : "text-gray-300 hover:text-blush"
               }`}
             >
               {project.title}
