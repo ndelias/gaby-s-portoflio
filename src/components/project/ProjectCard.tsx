@@ -30,7 +30,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </motion.div>
       </div>
       <div className="mt-4 flex flex-col gap-1">
-        <h3 className="text-[clamp(0.9375rem,0.5vw+0.8rem,1.0625rem)] font-medium text-gray-900">
+        <h3 className="text-[length:var(--text-body)] font-medium text-gray-900">
           {project.title}
         </h3>
         <Caption>

@@ -78,7 +78,7 @@ export default function AboutPage() {
               <div className="flex flex-col gap-6">
                 {education.map((item, i) => (
                   <div key={i} className="flex flex-col gap-1">
-                    <span className="text-[clamp(0.9375rem,0.5vw+0.8rem,1.0625rem)] font-medium text-gray-900">
+                    <span className="text-[length:var(--text-body)] font-medium text-gray-900">
                       {item.degree}
                     </span>
                     <Caption as="p">{item.institution}</Caption>
@@ -101,7 +101,7 @@ export default function AboutPage() {
               <div className="flex flex-col gap-6">
                 {experience.map((item, i) => (
                   <div key={i} className="flex flex-col gap-1">
-                    <span className="text-[clamp(0.9375rem,0.5vw+0.8rem,1.0625rem)] font-medium text-gray-900">
+                    <span className="text-[length:var(--text-body)] font-medium text-gray-900">
                       {item.role}
                     </span>
                     <Caption as="p">{item.studio}</Caption>

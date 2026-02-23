@@ -113,7 +113,7 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
             <h2 className="text-[clamp(1rem,1vw+0.5rem,1.25rem)] font-semibold tracking-[-0.02em] text-gray-900 group-hover:text-blush transition-colors duration-300">
               {project.title}
             </h2>
-            <p className="text-[clamp(0.6875rem,0.2vw+0.6rem,0.75rem)] font-normal text-gray-500 mt-1 line-clamp-1 group-hover:text-blush/60 transition-colors duration-300">
+            <p className="text-[length:var(--text-label)] font-normal text-gray-500 mt-1 line-clamp-1 group-hover:text-blush/60 transition-colors duration-300">
               {project.excerpt[locale]}
             </p>
           </div>

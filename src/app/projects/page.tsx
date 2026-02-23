@@ -5,7 +5,7 @@ import { GridContainer } from "@/components/layout/GridContainer";
 import { Section } from "@/components/layout/Section";
 import { ProjectFilter, type FilterCategory } from "@/components/project/ProjectFilter";
 import { ProjectGrid } from "@/components/project/ProjectGrid";
-import { ViewModeToggle } from "@/components/navigation/ViewModeToggle";
+import { ToggleGroup } from "@/components/navigation/ToggleGroup";
 import { Display } from "@/components/typography";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useViewMode } from "@/hooks/useViewMode";
@@ -44,7 +44,7 @@ export default function ProjectsPage() {
             activeFilter={activeFilter}
             onFilterChange={setActiveFilter}
           />
-          <ViewModeToggle
+          <ToggleGroup
             options={viewOptions}
             value={projectViewMode}
             onChange={setProjectViewMode}
