@@ -32,9 +32,13 @@ function useScrollReveal(innerRef: React.RefObject<HTMLDivElement | null>) {
     const centeredness = 1 - Math.min(1, distFromCenter);
     const eased = smoothstep(centeredness);
 
+    // Minimum values so the next project peeks into view
+    const minOpacity = 0.45;
+    const minScale = 0.93;
+
     // Write directly to DOM — no React re-render
-    inner.style.opacity = String(eased);
-    inner.style.transform = `scale(${0.5 + 0.5 * eased})`;
+    inner.style.opacity = String(minOpacity + (1 - minOpacity) * eased);
+    inner.style.transform = `scale(${minScale + (1 - minScale) * eased})`;
   }, [innerRef]);
 
   useEffect(() => {
@@ -71,7 +75,7 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
         <div
           ref={innerRef}
           className="px-6 lg:px-10 will-change-[transform,opacity]"
-          style={{ opacity: 0, transform: "scale(0.5)" }}
+          style={{ opacity: 0.45, transform: "scale(0.93)" }}
         >
           <div className="relative h-[55vh] sm:h-[60vh] lg:h-[65vh] w-full overflow-hidden">
             <Image
