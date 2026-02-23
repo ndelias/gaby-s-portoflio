@@ -3,6 +3,7 @@ import { inter } from "@/lib/fonts";
 import { LocaleProvider } from "@/providers/LocaleProvider";
 import { ViewModeProvider } from "@/providers/ViewModeProvider";
 import { LogoAnimationProvider } from "@/providers/LogoAnimationProvider";
+import { NavigationDirectionProvider } from "@/providers/NavigationDirectionProvider";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { siteMetadata } from "@/data/metadata";
@@ -27,6 +28,7 @@ export default function RootLayout({
         <LocaleProvider>
           <ViewModeProvider>
             <LogoAnimationProvider>
+              <NavigationDirectionProvider>
               <Header />
               {/* Top dissolve: anchored to navbar bottom edge */}
               <div
@@ -40,6 +42,7 @@ export default function RootLayout({
                 {children}
               </main>
               <Footer />
+              </NavigationDirectionProvider>
             </LogoAnimationProvider>
           </ViewModeProvider>
         </LocaleProvider>

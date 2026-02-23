@@ -36,6 +36,23 @@ export interface TranslationStrings {
     education: string;
     experience: string;
     contact: string;
+    bio: string[];
+    educationEntries: {
+      degree: string;
+      institution: string;
+      year: string;
+    }[];
+    experienceEntries: {
+      role: string;
+      studio: string;
+      period: string;
+      location: string;
+    }[];
+    contactLabels: {
+      email: string;
+      instagram: string;
+      linkedin: string;
+    };
   };
   common: {
     backToTop: string;
