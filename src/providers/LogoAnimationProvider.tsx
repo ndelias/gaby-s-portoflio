@@ -1,7 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useState, useEffect } from "react";
-import { VISITED_STORAGE_KEY } from "@/lib/constants";
+import { createContext, useCallback, useState } from "react";
 
 export type LogoAnimationPhase =
   | "idle"
@@ -13,6 +12,7 @@ export type LogoAnimationPhase =
 interface LogoAnimationContextValue {
   phase: LogoAnimationPhase;
   setPhase: (phase: LogoAnimationPhase) => void;
+  resetAnimation: () => void;
   navbarLogoRect: DOMRect | null;
   setNavbarLogoRect: (rect: DOMRect | null) => void;
 }
@@ -20,6 +20,7 @@ interface LogoAnimationContextValue {
 export const LogoAnimationContext = createContext<LogoAnimationContextValue>({
   phase: "loading",
   setPhase: () => {},
+  resetAnimation: () => {},
   navbarLogoRect: null,
   setNavbarLogoRect: () => {},
 });
@@ -29,26 +30,20 @@ export function LogoAnimationProvider({
 }: {
   children: React.ReactNode;
 }) {
-  // Start as "loading" so the white overlay is visible from the very first
-  // paint.  After hydration we check sessionStorage — returning visitors get
-  // switched to "idle" immediately, first-time visitors stay in "loading".
-  const [phase, setPhaseState] = useState<LogoAnimationPhase>("loading");
+  const [phase, setPhaseState] = useState<LogoAnimationPhase>("idle");
   const [navbarLogoRect, setNavbarLogoRect] = useState<DOMRect | null>(null);
-
-  useEffect(() => {
-    const hasVisited = sessionStorage.getItem(VISITED_STORAGE_KEY);
-    if (hasVisited) {
-      setPhaseState("idle");
-    }
-  }, []);
 
   const setPhase = useCallback((newPhase: LogoAnimationPhase) => {
     setPhaseState(newPhase);
   }, []);
 
+  const resetAnimation = useCallback(() => {
+    setPhaseState("loading");
+  }, []);
+
   return (
     <LogoAnimationContext.Provider
-      value={{ phase, setPhase, navbarLogoRect, setNavbarLogoRect }}
+      value={{ phase, setPhase, resetAnimation, navbarLogoRect, setNavbarLogoRect }}
     >
       {children}
     </LogoAnimationContext.Provider>
