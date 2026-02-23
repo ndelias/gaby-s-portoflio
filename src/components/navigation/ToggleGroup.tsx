@@ -20,7 +20,7 @@ export function ToggleGroup<T extends string>({
           <button
             onClick={() => onChange(option.value)}
             className={cn(
-              "text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] transition-colors duration-300",
+              "text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] transition-colors duration-[200ms]",
               value === option.value
                 ? "text-gray-900"
                 : "text-gray-500 hover:text-blush"

@@ -12,7 +12,7 @@ export function Tag({ children, active = false, onClick, className }: TagProps) 
     <button
       onClick={onClick}
       className={cn(
-        "text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] px-3 py-1.5 transition-colors duration-300",
+        "text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] px-3 py-1.5 transition-colors duration-[200ms]",
         active
           ? "text-gray-900 border-b border-gray-900"
           : "text-gray-500 hover:text-blush",

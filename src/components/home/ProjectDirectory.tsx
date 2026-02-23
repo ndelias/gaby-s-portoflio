@@ -84,7 +84,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
             <button
               key={project.slug}
               onClick={() => handleClick(project.slug)}
-              className={`text-left text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] transition-colors duration-300 py-1.5 ${
+              className={`text-left text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] transition-colors duration-[200ms] py-1.5 ${
                 activeSlug === project.slug
                   ? "text-gray-900"
                   : "text-gray-300 hover:text-blush"
@@ -101,7 +101,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
             href="https://linkedin.com/in/gaby-architect"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] text-gray-300 hover:text-blush transition-colors duration-300"
+            className="text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] text-gray-300 hover:text-blush transition-colors duration-[200ms]"
           >
             LinkedIn
           </a>
@@ -109,7 +109,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
             href="/resume.pdf"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] text-gray-300 hover:text-blush transition-colors duration-300"
+            className="text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] text-gray-300 hover:text-blush transition-colors duration-[200ms]"
           >
             Resume
           </a>
@@ -127,7 +127,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
               key={project.slug}
               data-slug={project.slug}
               onClick={() => handleClick(project.slug)}
-              className={`text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] transition-colors duration-300 shrink-0 ${
+              className={`text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] transition-colors duration-[200ms] shrink-0 ${
                 activeSlug === project.slug
                   ? "text-gray-900"
                   : "text-gray-300 hover:text-blush"

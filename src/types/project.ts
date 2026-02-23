@@ -12,7 +12,9 @@ export interface ProjectImage {
   alt: string;
   width: number;
   height: number;
-  layout?: "full" | "half";
+  layout?: "full" | "half" | "third";
+  title?: string;
+  rotate?: number;
 }
 
 export interface Project {

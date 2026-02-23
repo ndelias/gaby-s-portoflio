@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { LogoSequencePlayer } from "./LogoSequencePlayer";
 import { useLogoAnimation } from "@/hooks/useLogoAnimation";
 import { VISITED_STORAGE_KEY } from "@/lib/constants";
+import { transition } from "@/lib/motion";
 
 // Dimensions of the sequence canvas (CSS px)
 const SEQUENCE_WIDTH = 1000;
@@ -84,7 +85,7 @@ export function LoadingScreen() {
         <motion.div
           className="fixed inset-0 z-[60] flex items-center justify-center bg-white"
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={transition.section}
         >
           <div ref={containerRef}>
             {!sequenceDone && (
@@ -103,7 +104,7 @@ export function LoadingScreen() {
                 height={SEQUENCE_HEIGHT}
                 initial={{ x: 0, y: 0, scale: 1 }}
                 animate={getFlyToAnimation()}
-                transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                transition={transition.section}
                 onAnimationComplete={onTransitionComplete}
               />
             )}

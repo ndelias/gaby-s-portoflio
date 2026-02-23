@@ -34,7 +34,7 @@ export function Header() {
       <GridContainer>
         <nav className="grid grid-cols-3 items-center h-16 sm:h-20">
           <div
-            className="justify-self-start transition-opacity duration-500"
+            className="justify-self-start transition-opacity duration-[400ms]"
             style={{ opacity: animationDone ? 1 : 0 }}
           >
             <NavLink href="/">
@@ -50,7 +50,7 @@ export function Header() {
                 alt="GLB"
                 width={88}
                 height={52}
-                className="transition-opacity duration-300"
+                className="transition-opacity duration-[400ms]"
                 style={{ opacity: animationDone ? 1 : 0 }}
                 unoptimized
                 priority
@@ -59,7 +59,7 @@ export function Header() {
           </div>
 
           <div
-            className="flex items-center justify-end gap-6 sm:gap-8 transition-opacity duration-500"
+            className="flex items-center justify-end gap-6 sm:gap-8 transition-opacity duration-[400ms]"
             style={{ opacity: animationDone ? 1 : 0 }}
           >
             {navigationItems.map((item) => (

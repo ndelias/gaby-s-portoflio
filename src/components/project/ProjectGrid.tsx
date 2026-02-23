@@ -40,9 +40,9 @@ export function ProjectGrid({ projects, viewMode }: ProjectGridProps) {
               href={`/projects/${project.slug}`}
               className="group block"
             >
-              <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-[var(--grid-gutter)] py-4 sm:py-5 border-b border-gray-200 transition-colors duration-300 hover:bg-gray-100/50">
+              <div className="grid grid-cols-1 sm:grid-cols-12 gap-x-[var(--grid-gutter)] py-4 sm:py-5 border-b border-gray-200 transition-colors duration-[200ms] hover:bg-gray-100/50">
                 <div className="sm:col-span-4">
-                  <span className="text-[length:var(--text-body)] font-medium text-gray-900 group-hover:text-blush transition-colors duration-300">
+                  <span className="text-[length:var(--text-body)] font-medium text-gray-900 group-hover:text-blush transition-colors duration-[200ms]">
                     {project.title}
                   </span>
                 </div>

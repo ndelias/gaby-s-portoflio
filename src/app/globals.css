@@ -54,6 +54,7 @@
 }
 
 body {
+  overflow-x: hidden;
   background-color: var(--color-white);
   color: var(--color-gray-900);
   font-family: var(--font-sans), sans-serif;
