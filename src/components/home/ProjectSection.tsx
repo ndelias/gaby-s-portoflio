@@ -63,7 +63,7 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
     <div
       id={`project-${project.slug}`}
       ref={outerRef}
-      className="scroll-mt-[112px] sm:scroll-mt-[128px] lg:scroll-mt-20 py-8 lg:py-12"
+      className="scroll-mt-[112px] sm:scroll-mt-[128px] lg:scroll-mt-20 py-4 lg:py-6"
     >
       <Link
         href={`/projects/${project.slug}`}
@@ -99,9 +99,9 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
                   <h2 className="text-[clamp(1.25rem,1.5vw+0.5rem,1.75rem)] font-semibold tracking-[-0.02em] text-white underline underline-offset-4 decoration-white/40">
                     {project.title}
                   </h2>
-                  <p className="text-[clamp(0.75rem,0.3vw+0.65rem,0.875rem)] font-normal text-white/60 mt-1.5 line-clamp-1">
-                    {project.excerpt[locale]}
-                  </p>
+                  <span className="text-[0.6875rem] uppercase tracking-[0.15em] text-white/40 mt-1.5 block">
+                    {project.year}
+                  </span>
                 </div>
                 <span className="shrink-0 ml-8 px-5 py-2 border border-white/40 text-[0.6875rem] uppercase tracking-[0.15em] text-white/90 hover:bg-white hover:text-gray-800 hover:border-white transition-colors duration-200">
                   Read More
@@ -117,9 +117,9 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
             <h2 className="text-[clamp(1rem,1vw+0.5rem,1.25rem)] font-semibold tracking-[-0.02em] text-gray-900 group-hover:text-blush transition-colors duration-[200ms] underline underline-offset-4 decoration-gray-300 group-hover:decoration-blush">
               {project.title}
             </h2>
-            <p className="text-[length:var(--text-label)] font-normal text-gray-500 mt-1 line-clamp-1 group-hover:text-blush/60 transition-colors duration-[200ms]">
-              {project.excerpt[locale]}
-            </p>
+            <span className="text-[0.6875rem] uppercase tracking-[0.15em] text-gray-400 mt-1 block">
+              {project.year}
+            </span>
           </div>
           <span className="self-start px-4 py-1.5 border border-gray-300 text-[0.6875rem] uppercase tracking-[0.15em] text-gray-500 group-hover:text-blush group-hover:border-blush transition-colors duration-[200ms]">
             Read More

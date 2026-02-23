@@ -4,7 +4,6 @@ import { useState, useCallback, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { LogoSequencePlayer } from "./LogoSequencePlayer";
 import { useLogoAnimation } from "@/hooks/useLogoAnimation";
-import { VISITED_STORAGE_KEY } from "@/lib/constants";
 import { transition } from "@/lib/motion";
 
 // Dimensions of the sequence canvas (CSS px)
@@ -13,14 +12,25 @@ const SEQUENCE_HEIGHT = 591;
 
 export function LoadingScreen() {
   const { phase, setPhase, navbarLogoRect } = useLogoAnimation();
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(phase === "loading");
   const [sequenceReady, setSequenceReady] = useState(false);
   const [sequenceDone, setSequenceDone] = useState(false);
+  const [playKey, setPlayKey] = useState(0);
   const canvasRectRef = useRef<DOMRect | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Don't render at all if we're idle (returning visitor)
-  const shouldRender = phase !== "idle";
+  // Reset internal state whenever the phase goes back to "loading"
+  useEffect(() => {
+    if (phase === "loading") {
+      setVisible(true);
+      setSequenceReady(false);
+      setSequenceDone(false);
+      canvasRectRef.current = null;
+      setPlayKey((k) => k + 1);
+    }
+  }, [phase]);
+
+  const shouldRender = phase !== "idle" && phase !== "complete";
 
   const onReady = useCallback(() => {
     setSequenceReady(true);
@@ -47,7 +57,6 @@ export function LoadingScreen() {
 
   // After transition animation completes
   const onTransitionComplete = useCallback(() => {
-    sessionStorage.setItem(VISITED_STORAGE_KEY, "true");
     const timeout = setTimeout(() => {
       setVisible(false);
       setPhase("complete");
@@ -90,6 +99,7 @@ export function LoadingScreen() {
           <div ref={containerRef}>
             {!sequenceDone && (
               <LogoSequencePlayer
+                key={playKey}
                 playing={phase === "playing"}
                 onReady={onReady}
                 onComplete={onComplete}

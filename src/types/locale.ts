@@ -37,6 +37,9 @@ export interface TranslationStrings {
     experience: string;
     contact: string;
     bio: string[];
+    linkedinCta: string;
+    resumeCta: string;
+    resumeLabel: string;
     educationEntries: {
       degree: string;
       institution: string;

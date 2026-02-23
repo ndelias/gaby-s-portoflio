@@ -3,18 +3,18 @@ import type { Project } from "@/types";
 export const projects: Project[] = [
   {
     slug: "centro-cultural-la-ceiba",
-    title: "Desert Fabric 2025",
+    title: "Desert Fabric",
     description: {
-      en: "A cultural center designed to serve as a civic anchor for the community. The building's form is derived from the local tradition of gathering under large ceiba trees, translating the canopy into a sheltering roof structure.\n\nOpen-air corridors connect exhibition halls, workshops, and a small amphitheater. The use of local brick and exposed steel reflects both craft tradition and contemporary construction.",
-      es: "Un centro cultural disenado para servir como ancla civica para la comunidad. La forma del edificio se deriva de la tradicion local de reunirse bajo grandes arboles de ceiba, traduciendo el dosel en una estructura de techo protector.\n\nCorredores al aire libre conectan salas de exhibicion, talleres y un pequeno anfiteatro. El uso de ladrillo local y acero expuesto refleja tanto la tradicion artesanal como la construccion contemporanea.",
+      en: "The structure tells a story of naturality, as the driving force of the project was to make something that felt like it was meant to be in Joshua Tree — that it has always been there and will always be. It acts as an installation representing the very essence of Joshua Tree, in how it flows with the natural landscape, holds similar textures and colors of the desert, and follows the out-of-the-ordinary form that is consistent with the landscape formations of Joshua Tree.\n\nThe project's primary ambition is to create a piece of architecture that reads less as an intervention and more as a pre-existing condition of Joshua Tree. In this sense, the structure is not simply sited within the desert; it is argued as of the desert, operating as a spatial narrative of naturality and permanence — something that appears as though it has always been there, and will remain. Its massing flows with the terrain rather than imposing upon it, and its surface language aligns with the desert's textures and landscapes. Similar to the site the structure will inhabit, the building itself acts as an installation representing the essence of Joshua Tree.",
+      es: "La estructura cuenta una historia de naturalidad, ya que la fuerza motriz del proyecto fue crear algo que pareciera pertenecer a Joshua Tree — que siempre ha estado ahi y siempre estara. Actua como una instalacion que representa la esencia misma de Joshua Tree, en como fluye con el paisaje natural, mantiene texturas y colores similares al desierto, y sigue la forma extraordinaria que es consistente con las formaciones del paisaje de Joshua Tree.\n\nLa ambicion principal del proyecto es crear una pieza de arquitectura que se lea menos como una intervencion y mas como una condicion preexistente de Joshua Tree. En este sentido, la estructura no esta simplemente ubicada dentro del desierto; se plantea como del desierto, operando como una narrativa espacial de naturalidad y permanencia — algo que parece haber estado siempre ahi, y que permanecera. Su volumetria fluye con el terreno en lugar de imponerse sobre el, y su lenguaje superficial se alinea con las texturas y paisajes del desierto. Similar al sitio que la estructura habitara, el edificio en si actua como una instalacion que representa la esencia de Joshua Tree.",
     },
     excerpt: {
-      en: "A cultural center designed to serve as a civic anchor for the community.",
-      es: "Un centro cultural disenado para servir como ancla civica para la comunidad.",
+      en: "An installation representing the essence of Joshua Tree, flowing with the natural landscape.",
+      es: "Una instalacion que representa la esencia de Joshua Tree, fluyendo con el paisaje natural.",
     },
     typology: "cultural",
     location: "Cartagena, Colombia",
-    year: "2023",
+    year: "2025",
     status: "completed",
     area: "1,800 m2",
     client: "Municipal Government",
@@ -48,7 +48,7 @@ export const projects: Project[] = [
   },
   {
     slug: "biblioteca-del-rio",
-    title: "Falda Cielo 2025",
+    title: "Falda Cielo",
     description: {
       en: "A public library positioned along the riverbank, designed to make knowledge accessible while responding to the rhythms of the water. The building steps down toward the river, creating terraced reading spaces that blur the boundary between interior and landscape.\n\nThe structure uses reinforced concrete with deep overhangs to manage the tropical climate, while perforated screens filter light into the reading rooms.",
       es: "Una biblioteca publica ubicada a lo largo de la ribera del rio, disenada para hacer el conocimiento accesible mientras responde a los ritmos del agua. El edificio desciende hacia el rio, creando espacios de lectura en terrazas que difuminan el limite entre interior y paisaje.\n\nLa estructura usa concreto reforzado con aleros profundos para manejar el clima tropical, mientras pantallas perforadas filtran la luz en las salas de lectura.",
@@ -59,7 +59,7 @@ export const projects: Project[] = [
     },
     typology: "public",
     location: "Cali, Colombia",
-    year: "2024",
+    year: "2025",
     status: "in-progress",
     area: "2,400 m2",
     client: "City of Cali",
@@ -78,7 +78,7 @@ export const projects: Project[] = [
   },
   {
     slug: "refugio-guatape",
-    title: "Teatro Blanquita Revival 2025",
+    title: "Teatro Blanquita Revival",
     description: {
       en: "A weekend retreat set among the rock formations near Guatape. The house is organized as three pavilions connected by covered walkways, each oriented to capture a different view of the reservoir.\n\nLocal stone foundations anchor the pavilions to the terrain, while lightweight timber frames and corrugated metal roofs allow the structures to sit lightly on the landscape.",
       es: "Un refugio de fin de semana ubicado entre las formaciones rocosas cerca de Guatape. La casa se organiza como tres pabellones conectados por pasarelas cubiertas, cada uno orientado para capturar una vista diferente del embalse.\n\nCimientos de piedra local anclan los pabellones al terreno, mientras marcos ligeros de madera y techos de metal corrugado permiten que las estructuras se asienten suavemente en el paisaje.",
@@ -89,7 +89,7 @@ export const projects: Project[] = [
     },
     typology: "residential",
     location: "Guatape, Colombia",
-    year: "2024",
+    year: "2025",
     status: "competition",
     area: "180 m2",
     heroImage: {
@@ -107,7 +107,7 @@ export const projects: Project[] = [
   },
   {
     slug: "torre-san-martin",
-    title: "Pasadena Play Revival 2024",
+    title: "Pasadena Play Revival",
     description: {
       en: "A mixed-use commercial tower that reinterprets the typology of the urban office building. The facade is composed of a modular precast system that provides solar shading while creating a strong visual rhythm on the street.\n\nGround-floor retail opens directly to the sidewalk through full-height glazing, while upper floors are set back to reduce the building's perceived mass.",
       es: "Una torre comercial de uso mixto que reinterpreta la tipologia del edificio de oficinas urbano. La fachada se compone de un sistema prefabricado modular que proporciona proteccion solar mientras crea un ritmo visual fuerte en la calle.\n\nEl comercio en planta baja se abre directamente a la acera a traves de acristalamiento de altura completa, mientras los pisos superiores estan retranqueados para reducir la masa percibida del edificio.",
@@ -118,7 +118,7 @@ export const projects: Project[] = [
     },
     typology: "commercial",
     location: "Bogota, Colombia",
-    year: "2023",
+    year: "2024",
     status: "completed",
     area: "8,600 m2",
     client: "Grupo Argos",
@@ -137,7 +137,7 @@ export const projects: Project[] = [
   },
   {
     slug: "the-journey",
-    title: "The Journey 2024",
+    title: "The Journey",
     description: {
       en: "A spatial narrative exploring movement, memory, and place. The project traces a path through a sequence of environments, each designed to evoke a distinct emotional response through material, light, and proportion.\n\nThe journey unfolds as a procession of thresholds, compressions, and expansions that guide the visitor through an evolving architectural experience.",
       es: "Una narrativa espacial que explora el movimiento, la memoria y el lugar. El proyecto traza un camino a traves de una secuencia de ambientes, cada uno disenado para evocar una respuesta emocional distinta a traves del material, la luz y la proporcion.\n\nEl recorrido se despliega como una procesion de umbrales, compresiones y expansiones que guian al visitante a traves de una experiencia arquitectonica en evolucion.",
@@ -166,7 +166,7 @@ export const projects: Project[] = [
   },
   {
     slug: "facultad-de-artes",
-    title: "LA 28 Concession Stand 2023",
+    title: "LA 28 Concession Stand",
     description: {
       en: "An academic building for the Faculty of Arts, conceived as a series of interconnected studios organized around shared courtyards. The design prioritizes natural light and flexible space, allowing studios to open onto covered outdoor work areas.\n\nRaw concrete frames and large pivoting panels give each studio the ability to reconfigure its relationship to the courtyard throughout the day.",
       es: "Un edificio academico para la Facultad de Artes, concebido como una serie de estudios interconectados organizados alrededor de patios compartidos. El diseno prioriza la luz natural y el espacio flexible, permitiendo que los estudios se abran a areas de trabajo exteriores cubiertas.\n\nMarcos de concreto en bruto y grandes paneles pivotantes dan a cada estudio la capacidad de reconfigurar su relacion con el patio a lo largo del dia.",
@@ -177,7 +177,7 @@ export const projects: Project[] = [
     },
     typology: "academic",
     location: "Bogota, Colombia",
-    year: "2022",
+    year: "2023",
     status: "completed",
     area: "4,200 m2",
     client: "Universidad Nacional",
@@ -196,7 +196,7 @@ export const projects: Project[] = [
   },
   {
     slug: "casa-miradora",
-    title: "Alleyway 2021",
+    title: "Alleyway",
     description: {
       en: "A private residence that frames the landscape through carefully positioned openings. The design establishes a dialogue between domestic life and the surrounding terrain, using concrete and timber to create spaces that feel both grounded and open.\n\nThe house is organized along a single axis, with living spaces opening to the west and private rooms oriented east. A central courtyard brings light deep into the plan.",
       es: "Una residencia privada que enmarca el paisaje a traves de aberturas cuidadosamente posicionadas. El diseno establece un dialogo entre la vida domestica y el terreno circundante, usando concreto y madera para crear espacios que se sienten enraizados y abiertos.\n\nLa casa se organiza a lo largo de un eje unico, con espacios de estar abiertos al oeste y habitaciones privadas orientadas al este. Un patio central trae luz profunda al plano.",
@@ -207,7 +207,7 @@ export const projects: Project[] = [
     },
     typology: "residential",
     location: "Medellin, Colombia",
-    year: "2024",
+    year: "2021",
     status: "completed",
     area: "320 m2",
     client: "Private",

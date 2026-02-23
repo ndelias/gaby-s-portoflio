@@ -1,6 +1,7 @@
 "use client";
 
 import { Body } from "@/components/typography";
+import { ExternalLink } from "@/components/ui/ExternalLink";
 import { useTranslation } from "@/hooks/useTranslation";
 
 export function StudioBio() {
@@ -11,6 +12,17 @@ export function StudioBio() {
       {t.about.bio.map((text, i) => (
         <Body key={i}>{text}</Body>
       ))}
+      <Body>
+        {t.about.linkedinCta}{" "}
+        <ExternalLink href="https://www.linkedin.com/in/gabriella-batista-502295237/">
+          LinkedIn
+        </ExternalLink>
+        {" — "}
+        {t.about.resumeCta}{" "}
+        <ExternalLink href="/resume.pdf">
+          {t.about.resumeLabel}
+        </ExternalLink>
+      </Body>
     </div>
   );
 }

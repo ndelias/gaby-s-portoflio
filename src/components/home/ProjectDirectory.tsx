@@ -98,7 +98,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
         {/* Bottom links */}
         <div className="pb-8 flex flex-col gap-2">
           <a
-            href="https://linkedin.com/in/gaby-architect"
+            href="https://www.linkedin.com/in/gabriella-batista-502295237/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] text-gray-300 hover:text-blush transition-colors duration-[200ms]"
@@ -112,6 +112,12 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
             className="text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] text-gray-300 hover:text-blush transition-colors duration-[200ms]"
           >
             Resume
+          </a>
+          <a
+            href="mailto:glucia.0524@gmail.com"
+            className="text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] text-gray-300 hover:text-blush transition-colors duration-[200ms]"
+          >
+            Contact
           </a>
         </div>
       </nav>

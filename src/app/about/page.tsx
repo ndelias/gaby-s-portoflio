@@ -92,20 +92,8 @@ export default function AboutPage() {
               <div className="flex flex-col gap-4">
                 <div>
                   <Label className="block mb-1">{t.about.contactLabels.email}</Label>
-                  <ExternalLink href="mailto:hello@gaby-arch.com">
-                    hello@gaby-arch.com
-                  </ExternalLink>
-                </div>
-                <div>
-                  <Label className="block mb-1">{t.about.contactLabels.instagram}</Label>
-                  <ExternalLink href="https://instagram.com/gaby.arch">
-                    @gaby.arch
-                  </ExternalLink>
-                </div>
-                <div>
-                  <Label className="block mb-1">{t.about.contactLabels.linkedin}</Label>
-                  <ExternalLink href="https://linkedin.com/in/gaby-architect">
-                    Gaby
+                  <ExternalLink href="mailto:glucia.0524@gmail.com">
+                    glucia.0524@gmail.com
                   </ExternalLink>
                 </div>
               </div>
