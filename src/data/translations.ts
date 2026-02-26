@@ -26,8 +26,7 @@ export const translations: Translations = {
       typology: "Typology",
       location: "Location",
       year: "Year",
-      status: "Status",
-      area: "Area",
+
       client: "Client",
       previousProject: "Previous Project",
       nextProject: "Next Project",
@@ -119,8 +118,7 @@ export const translations: Translations = {
       typology: "Tipologia",
       location: "Ubicacion",
       year: "Ano",
-      status: "Estado",
-      area: "Area",
+
       client: "Cliente",
       previousProject: "Proyecto Anterior",
       nextProject: "Proyecto Siguiente",

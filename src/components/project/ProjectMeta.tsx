@@ -15,8 +15,7 @@ export function ProjectMeta({ project }: ProjectMetaProps) {
     { label: t.projects.typology, value: t.projects[project.typology] },
     { label: t.projects.location, value: project.location },
     { label: t.projects.year, value: project.year },
-    { label: t.projects.status, value: project.status.replace("-", " ") },
-    { label: t.projects.area, value: project.area },
+
     { label: t.projects.client, value: project.client },
   ];
 
