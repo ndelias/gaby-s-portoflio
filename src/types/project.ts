@@ -5,7 +5,6 @@ export type ProjectTypology =
   | "commercial"
   | "public";
 
-export type ProjectStatus = "completed" | "in-progress" | "competition";
 
 export interface ProjectImage {
   src: string;
@@ -31,8 +30,7 @@ export interface Project {
   typology: ProjectTypology;
   location: string;
   year: string;
-  status: ProjectStatus;
-  area?: string;
+
   client?: string;
   heroImage: ProjectImage;
   galleryImages: ProjectImage[];

@@ -25,8 +25,7 @@ export interface TranslationStrings {
     typology: string;
     location: string;
     year: string;
-    status: string;
-    area: string;
+
     client: string;
     previousProject: string;
     nextProject: string;
