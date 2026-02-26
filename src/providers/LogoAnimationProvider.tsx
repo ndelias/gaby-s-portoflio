@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useCallback, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import { ANIMATION_PLAYED_KEY } from "@/lib/constants";
 
 export type LogoAnimationPhase =
@@ -49,11 +49,17 @@ export function LogoAnimationProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [hasPlayed, setHasPlayed] = useState(getHasPlayed);
-  const [phase, setPhaseState] = useState<LogoAnimationPhase>(
-    hasPlayed ? "complete" : "loading"
-  );
+  const [hasPlayed, setHasPlayed] = useState(false);
+  const [phase, setPhaseState] = useState<LogoAnimationPhase>("loading");
   const [navbarLogoRect, setNavbarLogoRect] = useState<DOMRect | null>(null);
+
+  // Sync from sessionStorage after hydration to avoid server/client mismatch
+  useEffect(() => {
+    if (getHasPlayed()) {
+      setHasPlayed(true);
+      setPhaseState("complete");
+    }
+  }, []);
 
   const setPhase = useCallback((newPhase: LogoAnimationPhase) => {
     setPhaseState(newPhase);
