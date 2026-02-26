@@ -11,7 +11,7 @@ export interface ProjectImage {
   alt: string;
   width: number;
   height: number;
-  layout?: "full" | "half" | "third";
+  layout?: "full" | "half" | "third" | "tall-left";
   title?: string;
   rotate?: number;
 }

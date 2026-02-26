@@ -214,12 +214,20 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
   const nextImage = useCallback(() => setLightboxIndex((i) => i !== null && i < images.length - 1 ? i + 1 : i), [images.length]);
 
   // Build flat index map so each tile knows its position in the images array
-  const rows: { images: ProjectImage[]; startIndex: number }[] = [];
+  const rows: { images: ProjectImage[]; startIndex: number; type?: "tall-left" }[] = [];
   let i = 0;
 
   while (i < images.length) {
     const img = images[i];
-    if (img.layout === "third") {
+    if (img.layout === "tall-left") {
+      // Tall image on left spanning 2 rows, next 2 images stacked on right
+      const start = i;
+      const group: ProjectImage[] = [img];
+      if (i + 1 < images.length) group.push(images[i + 1]);
+      if (i + 2 < images.length) group.push(images[i + 2]);
+      rows.push({ images: group, startIndex: start, type: "tall-left" });
+      i += group.length;
+    } else if (img.layout === "third") {
       const start = i;
       const trio: ProjectImage[] = [img];
       while (trio.length < 3 && i + trio.length < images.length && images[i + trio.length].layout === "third") {
@@ -247,6 +255,34 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
     <>
       <div className="flex flex-col gap-10 sm:gap-12">
         {rows.map((row, rowIndex) => {
+          if (row.type === "tall-left" && row.images.length === 3) {
+            return (
+              <ScrollReveal key={rowIndex}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-[var(--grid-gutter)]">
+                  <div>
+                    <GalleryImage
+                      img={row.images[0]}
+                      sizes="(max-width: 639px) 100vw, 50vw"
+                      onClick={() => setLightboxIndex(row.startIndex)}
+                    />
+                  </div>
+                  <div className="flex flex-col justify-end gap-3">
+                    <GalleryImage
+                      img={row.images[1]}
+                      sizes="(max-width: 639px) 100vw, 50vw"
+                      onClick={() => setLightboxIndex(row.startIndex + 1)}
+                    />
+                    <GalleryImage
+                      img={row.images[2]}
+                      sizes="(max-width: 639px) 100vw, 50vw"
+                      onClick={() => setLightboxIndex(row.startIndex + 2)}
+                    />
+                  </div>
+                </div>
+              </ScrollReveal>
+            );
+          }
+
           if (row.images.length === 1) {
             return (
               <ScrollReveal key={rowIndex}>
