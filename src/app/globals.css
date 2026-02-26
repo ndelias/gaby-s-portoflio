@@ -71,6 +71,7 @@ body {
 /* Smooth scroll */
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
 }
 
 /* Remove default focus outline, add custom */
