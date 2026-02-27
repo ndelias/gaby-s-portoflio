@@ -3,7 +3,7 @@
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { ScrollFade } from "@/components/ui/ScrollFade";
 import { transition } from "@/lib/motion";
 import type { ProjectImage } from "@/types";
 
@@ -171,7 +171,7 @@ function GalleryImage({
   const aspectH = isRotated ? img.width : img.height;
 
   return (
-    <div className="group/img">
+    <div className="group/img overflow-hidden">
       <div
         className="relative w-full overflow-hidden bg-gray-100 cursor-pointer"
         style={{ aspectRatio: `${aspectW} / ${aspectH}` }}
@@ -185,13 +185,13 @@ function GalleryImage({
           style={isRotated ? { transform: `rotate(${img.rotate}deg)` } : undefined}
           sizes={sizes}
         />
+      </div>
 
-        {/* Title + expand slide-up */}
-        <div
-          className="absolute bottom-0 left-0 right-0 bg-white/90 translate-y-full group-hover/img:translate-y-0 transition-transform duration-[200ms] ease-out will-change-transform"
-        >
+      {/* Title + expand dropdown below image */}
+      <div className="grid grid-rows-[0fr] group-hover/img:grid-rows-[1fr] transition-[grid-template-rows] duration-[250ms] ease-out">
+        <div className="overflow-hidden">
           <div className="h-px w-full bg-gray-300" />
-          <div className="flex items-center justify-between px-4 py-2.5">
+          <div className="flex items-center justify-between px-4 py-2.5 cursor-pointer" onClick={onClick}>
             <p className="text-[length:var(--text-label)] font-medium text-gray-500">
               {img.title || img.alt}
             </p>
@@ -220,7 +220,6 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
   while (i < images.length) {
     const img = images[i];
     if (img.layout === "tall-left") {
-      // Tall image on left spanning 2 rows, next 2 images stacked on right
       const start = i;
       const group: ProjectImage[] = [img];
       if (i + 1 < images.length) group.push(images[i + 1]);
@@ -253,45 +252,51 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
 
   return (
     <>
-      <div className="flex flex-col gap-10 sm:gap-12">
+      <div className="flex flex-col">
         {rows.map((row, rowIndex) => {
           if (row.type === "tall-left" && row.images.length === 3) {
             return (
-              <ScrollReveal key={rowIndex}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-[var(--grid-gutter)]">
-                  <div>
-                    <GalleryImage
-                      img={row.images[0]}
-                      sizes="(max-width: 639px) 100vw, 50vw"
-                      onClick={() => setLightboxIndex(row.startIndex)}
-                    />
-                  </div>
-                  <div className="flex flex-col justify-end gap-3">
-                    <GalleryImage
-                      img={row.images[1]}
-                      sizes="(max-width: 639px) 100vw, 50vw"
-                      onClick={() => setLightboxIndex(row.startIndex + 1)}
-                    />
-                    <GalleryImage
-                      img={row.images[2]}
-                      sizes="(max-width: 639px) 100vw, 50vw"
-                      onClick={() => setLightboxIndex(row.startIndex + 2)}
-                    />
+              <ScrollFade key={rowIndex}>
+                <div className="min-h-[60vh] sm:min-h-screen flex items-center justify-center">
+                  <div className="max-w-[85%] mx-auto w-full grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-[var(--grid-gutter)]">
+                    <div>
+                      <GalleryImage
+                        img={row.images[0]}
+                        sizes="(max-width: 639px) 100vw, 42vw"
+                        onClick={() => setLightboxIndex(row.startIndex)}
+                      />
+                    </div>
+                    <div className="flex flex-col justify-end gap-3">
+                      <GalleryImage
+                        img={row.images[1]}
+                        sizes="(max-width: 639px) 100vw, 42vw"
+                        onClick={() => setLightboxIndex(row.startIndex + 1)}
+                      />
+                      <GalleryImage
+                        img={row.images[2]}
+                        sizes="(max-width: 639px) 100vw, 42vw"
+                        onClick={() => setLightboxIndex(row.startIndex + 2)}
+                      />
+                    </div>
                   </div>
                 </div>
-              </ScrollReveal>
+              </ScrollFade>
             );
           }
 
           if (row.images.length === 1) {
             return (
-              <ScrollReveal key={rowIndex}>
-                <GalleryImage
-                  img={row.images[0]}
-                  sizes="100vw"
-                  onClick={() => setLightboxIndex(row.startIndex)}
-                />
-              </ScrollReveal>
+              <ScrollFade key={rowIndex}>
+                <div className="min-h-[60vh] sm:min-h-screen flex items-center justify-center">
+                  <div className="max-w-[70%] mx-auto w-full">
+                    <GalleryImage
+                      img={row.images[0]}
+                      sizes="70vw"
+                      onClick={() => setLightboxIndex(row.startIndex)}
+                    />
+                  </div>
+                </div>
+              </ScrollFade>
             );
           }
 
@@ -300,21 +305,26 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
             : "grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-[var(--grid-gutter)] items-end";
 
           const sizesAttr = row.images.length === 3
-            ? "(max-width: 639px) 100vw, 33vw"
-            : "(max-width: 639px) 100vw, 50vw";
+            ? "(max-width: 639px) 100vw, 28vw"
+            : "(max-width: 639px) 100vw, 42vw";
 
           return (
-            <div key={rowIndex} className={colClass}>
-              {row.images.map((img, imgIndex) => (
-                <ScrollReveal key={imgIndex} delay={imgIndex * 0.1}>
-                  <GalleryImage
-                    img={img}
-                    sizes={sizesAttr}
-                    onClick={() => setLightboxIndex(row.startIndex + imgIndex)}
-                  />
-                </ScrollReveal>
-              ))}
-            </div>
+            <ScrollFade key={rowIndex}>
+              <div className="min-h-[60vh] sm:min-h-screen flex items-center justify-center">
+                <div className="max-w-[85%] mx-auto w-full">
+                  <div className={colClass}>
+                    {row.images.map((img, imgIndex) => (
+                      <GalleryImage
+                        key={imgIndex}
+                        img={img}
+                        sizes={sizesAttr}
+                        onClick={() => setLightboxIndex(row.startIndex + imgIndex)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </ScrollFade>
           );
         })}
       </div>

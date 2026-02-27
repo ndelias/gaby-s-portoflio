@@ -34,7 +34,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
   const paragraphs = description.split("\n\n");
 
   return (
-    <>
+    <div className="px-6 sm:px-12 lg:px-20 xl:px-28">
       <ProjectHero image={project.heroImage} />
 
       <Section gap="md">
@@ -63,9 +63,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
       </Section>
 
       <Section gap="sm">
-        <GridContainer>
-          <ProjectGallery images={project.galleryImages} />
-        </GridContainer>
+        <ProjectGallery images={project.galleryImages} />
       </Section>
 
       <section className="py-4">
@@ -107,6 +105,6 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           </div>
         </GridContainer>
       </section>
-    </>
+    </div>
   );
 }
