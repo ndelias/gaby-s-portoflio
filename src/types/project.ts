@@ -28,6 +28,7 @@ export interface Project {
     es: string;
   };
   typology: ProjectTypology;
+  program?: string;
   location: string;
   year: string;
 

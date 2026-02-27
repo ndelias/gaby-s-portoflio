@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useMemo, useCallback } from "react";
+import { useMemo } from "react";
 import { GridContainer } from "@/components/layout/GridContainer";
 import { Section } from "@/components/layout/Section";
-import { ProjectFilter, type FilterCategory } from "@/components/project/ProjectFilter";
 import { ProjectGrid } from "@/components/project/ProjectGrid";
 import { ToggleGroup } from "@/components/navigation/ToggleGroup";
 import { Display } from "@/components/typography";
@@ -15,12 +14,6 @@ import type { ProjectViewMode } from "@/types";
 export default function ProjectsPage() {
   const { t } = useTranslation();
   const { projectViewMode, setProjectViewMode } = useViewMode();
-  const [activeFilter, setActiveFilter] = useState<FilterCategory>("all");
-
-  const filteredProjects = useMemo(() => {
-    if (activeFilter === "all") return projects;
-    return projects.filter((p) => p.typology === activeFilter);
-  }, [activeFilter]);
 
   const viewOptions = useMemo<{ value: ProjectViewMode; label: string }[]>(
     () => [
@@ -39,11 +32,7 @@ export default function ProjectsPage() {
           </Display>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-10 sm:mb-12">
-          <ProjectFilter
-            activeFilter={activeFilter}
-            onFilterChange={setActiveFilter}
-          />
+        <div className="flex justify-end mb-10 sm:mb-12">
           <ToggleGroup
             options={viewOptions}
             value={projectViewMode}
@@ -52,7 +41,7 @@ export default function ProjectsPage() {
         </div>
 
         <ProjectGrid
-          projects={filteredProjects}
+          projects={projects}
           viewMode={projectViewMode}
         />
       </GridContainer>

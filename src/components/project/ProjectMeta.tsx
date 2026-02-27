@@ -12,7 +12,7 @@ export function ProjectMeta({ project }: ProjectMetaProps) {
   const { t } = useTranslation();
 
   const fields: { label: string; value: string | undefined }[] = [
-    { label: t.projects.typology, value: t.projects[project.typology] },
+    { label: t.projects.program, value: project.program },
     { label: t.projects.location, value: project.location },
     { label: t.projects.year, value: project.year },
 
