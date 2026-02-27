@@ -23,13 +23,10 @@ export function ProjectGrid({ projects, viewMode }: ProjectGridProps) {
           <div className="col-span-4">
             <Label>Project</Label>
           </div>
-          <div className="col-span-3">
-            <Label>{t.projects.typology}</Label>
-          </div>
-          <div className="col-span-3">
+          <div className="col-span-5">
             <Label>{t.projects.location}</Label>
           </div>
-          <div className="col-span-2 text-right">
+          <div className="col-span-3 text-right">
             <Label>{t.projects.year}</Label>
           </div>
         </div>
@@ -46,13 +43,10 @@ export function ProjectGrid({ projects, viewMode }: ProjectGridProps) {
                     {project.title}
                   </span>
                 </div>
-                <div className="sm:col-span-3 mt-1 sm:mt-0 flex items-center">
-                  <Caption>{t.projects[project.typology]}</Caption>
-                </div>
-                <div className="sm:col-span-3 flex items-center">
+                <div className="sm:col-span-5 mt-1 sm:mt-0 flex items-center">
                   <Caption>{project.location}</Caption>
                 </div>
-                <div className="sm:col-span-2 flex items-center sm:justify-end">
+                <div className="sm:col-span-3 flex items-center sm:justify-end">
                   <Caption>{project.year}</Caption>
                 </div>
               </div>

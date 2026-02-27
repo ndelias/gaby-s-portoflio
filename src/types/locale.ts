@@ -14,15 +14,9 @@ export interface TranslationStrings {
   };
   projects: {
     title: string;
-    all: string;
-    residential: string;
-    cultural: string;
-    academic: string;
-    commercial: string;
-    public: string;
     grid: string;
     list: string;
-    typology: string;
+    program: string;
     location: string;
     year: string;
 
