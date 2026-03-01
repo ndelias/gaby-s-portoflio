@@ -26,13 +26,10 @@ export default function ProjectsPage() {
   return (
     <Section gap="sm">
       <GridContainer>
-        <div className="mb-12 sm:mb-16">
+        <div className="flex items-end justify-between mb-10 sm:mb-12">
           <Display size="lg" as="h1">
             {t.projects.title}
           </Display>
-        </div>
-
-        <div className="flex justify-end mb-10 sm:mb-12">
           <ToggleGroup
             options={viewOptions}
             value={projectViewMode}

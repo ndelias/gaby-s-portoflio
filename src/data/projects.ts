@@ -16,6 +16,12 @@ export const projects: Project[] = [
     program: "Museum - Restaurant - Residency",
     location: "Joshua Tree, CA",
     year: "2025",
+    coverImage: {
+      src: "https://res.cloudinary.com/ddh4de7hy/image/upload/c_crop,g_east,w_2900/c_pad,ar_4:3,b_auto/f_auto,q_auto:best,w_2400/desert-fabric-2025/cover",
+      alt: "Desert Fabric cover art",
+      width: 3301,
+      height: 3301,
+    },
     heroImage: {
       src: "https://res.cloudinary.com/ddh4de7hy/image/upload/f_auto,q_auto:best,w_2400/desert-fabric-2025/site%20axonometric",
       alt: "Desert Fabric 2025 main view",
@@ -59,6 +65,12 @@ export const projects: Project[] = [
     program: "Pavilion",
     location: "Oaxaca, Mexico City",
     year: "2025",
+    coverImage: {
+      src: "https://res.cloudinary.com/ddh4de7hy/image/upload/f_auto,q_auto:best,w_2400/falda-cielo-2025/cover",
+      alt: "Falda Cielo cover art",
+      width: 3300,
+      height: 3301,
+    },
     heroImage: {
       src: "https://res.cloudinary.com/ddh4de7hy/image/upload/f_auto,q_auto:best,w_2400/falda-cielo-2025/experiential-perspective",
       alt: "Falda Cielo experiential perspective",
@@ -89,8 +101,15 @@ export const projects: Project[] = [
       es: "Una propuesta de reutilizacion adaptativa que reimagina el Teatro Blanquita como un archivo vivo y ancla cultural comunitaria.",
     },
     typology: "adaptive reuse",
+    program: "Adaptive Reuse",
     location: "Mexico City, Mexico",
     year: "2025",
+    coverImage: {
+      src: "https://res.cloudinary.com/ddh4de7hy/image/upload/c_pad,ar_4:3,b_auto/f_auto,q_auto:best,w_2400/teatro-blanquita-2025/cover",
+      alt: "Teatro Blanquita Revival cover art",
+      width: 3301,
+      height: 3301,
+    },
     heroImage: {
       src: "https://res.cloudinary.com/ddh4de7hy/image/upload/f_auto,q_auto:best,w_2400/teatro-blanquita-2025/experiential-elevation",
       alt: "Teatro Blanquita Revival experiential elevation",
@@ -126,6 +145,12 @@ export const projects: Project[] = [
     program: "Outdoor Building Installation",
     location: "USC Campus",
     year: "2024",
+    coverImage: {
+      src: "https://res.cloudinary.com/ddh4de7hy/image/upload/f_auto,q_auto:best,w_2400/the-journey/cover",
+      alt: "The Journey cover art",
+      width: 3300,
+      height: 3300,
+    },
     heroImage: {
       src: "https://res.cloudinary.com/ddh4de7hy/image/upload/f_auto,q_auto:best,w_2400/the-journey/site-axonometric-color",
       alt: "The Journey site axonometric in color",
@@ -164,6 +189,12 @@ export const projects: Project[] = [
     program: "LA28 Olympic Concession Stand",
     location: "LA28 USC Location",
     year: "2023",
+    coverImage: {
+      src: "https://res.cloudinary.com/ddh4de7hy/image/upload/c_pad,ar_4:3,b_auto/f_auto,q_auto:best,w_2400/concession-stand-2023/cover",
+      alt: "LA 28 Concession Stand cover art",
+      width: 3301,
+      height: 3300,
+    },
     heroImage: {
       src: "https://res.cloudinary.com/ddh4de7hy/image/upload/f_auto,q_auto:best,w_2400/concession-stand-2023/perspective-view",
       alt: "LA 28 Concession Stand perspective view",
@@ -193,6 +224,12 @@ export const projects: Project[] = [
     program: "Art Installation",
     location: "Downtown LA",
     year: "2022",
+    coverImage: {
+      src: "https://res.cloudinary.com/ddh4de7hy/image/upload/c_pad,ar_4:3,b_auto/f_auto,q_auto:best,w_2400/alleyway-2021/cover",
+      alt: "Alleyway cover art",
+      width: 3301,
+      height: 3300,
+    },
     heroImage: {
       src: "https://res.cloudinary.com/ddh4de7hy/image/upload/f_auto,q_auto:best,w_2400/alleyway-2021/perspective-views",
       alt: "Alleyway perspective views",

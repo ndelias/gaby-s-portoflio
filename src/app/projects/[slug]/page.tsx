@@ -35,7 +35,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
 
   return (
     <div className="px-6 sm:px-12 lg:px-20 xl:px-28">
-      <ProjectHero image={project.heroImage} />
+      <ProjectHero image={project.coverImage ?? project.heroImage} />
 
       <Section gap="md">
         <GridContainer>

@@ -21,8 +21,8 @@ export function ProjectCard({ project }: ProjectCardProps) {
         >
           <div className="relative aspect-[3/2] bg-gray-100">
             <Image
-              src={project.heroImage.src}
-              alt={project.heroImage.alt}
+              src={(project.coverImage ?? project.heroImage).src}
+              alt={(project.coverImage ?? project.heroImage).alt}
               fill
               className="object-cover"
               sizes="(max-width: 639px) 100vw, (max-width: 1023px) 50vw, 33vw"

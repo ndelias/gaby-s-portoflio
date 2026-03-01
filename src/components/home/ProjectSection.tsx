@@ -79,8 +79,8 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
         >
           <div className="relative aspect-[16/9] w-full overflow-hidden">
             <Image
-              src={project.heroImage.src}
-              alt={project.heroImage.alt}
+              src={(project.coverImage ?? project.heroImage).src}
+              alt={(project.coverImage ?? project.heroImage).alt}
               fill
               className="object-cover transition-transform duration-[400ms] ease-out"
               style={{ transform: hovered ? "scale(1.02)" : "scale(1)" }}
@@ -88,25 +88,22 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
               priority={priority}
             />
 
-            {/* Desktop hover overlay */}
+            {/* Desktop hover info */}
             <div
-              className="hidden lg:block absolute inset-0 transition-opacity duration-[400ms] ease-out"
-              style={{ opacity: hovered ? 1 : 0 }}
+              className="hidden lg:flex absolute inset-x-0 bottom-0 p-8 xl:p-10 items-end justify-between transition-all duration-[400ms] ease-out translate-y-2"
+              style={{ opacity: hovered ? 1 : 0, transform: hovered ? "translateY(0)" : "translateY(8px)" }}
             >
-              <div className="absolute inset-0 bg-black/70" />
-              <div className="absolute inset-0 p-12 xl:p-16 flex items-end justify-between">
-                <div>
-                  <h2 className="text-[clamp(1.25rem,1.5vw+0.5rem,1.75rem)] font-semibold tracking-[-0.02em] text-white underline underline-offset-4 decoration-white/40">
-                    {project.title}
-                  </h2>
-                  <span className="text-[0.6875rem] uppercase tracking-[0.15em] text-white/40 mt-1.5 block">
-                    {project.year}
-                  </span>
-                </div>
-                <span className="shrink-0 ml-8 px-5 py-2 border border-white/40 text-[0.6875rem] uppercase tracking-[0.15em] text-white/90 hover:bg-white hover:text-gray-800 hover:border-white transition-colors duration-200">
-                  Read More
-                </span>
+              <div>
+                <h2 className="text-[clamp(1.25rem,1.5vw+0.5rem,1.75rem)] font-semibold tracking-[-0.02em] text-gray-900">
+                  {project.title}
+                </h2>
+                <p className="text-[0.8125rem] leading-relaxed text-gray-600 mt-1.5 max-w-md truncate">
+                  {project.excerpt[locale]}
+                </p>
               </div>
+              <span className="shrink-0 ml-8 px-5 py-2 border border-gray-900 text-[0.6875rem] uppercase tracking-[0.15em] text-gray-900 hover:bg-blush hover:text-white hover:border-blush transition-colors duration-200">
+                Read More
+              </span>
             </div>
           </div>
         </div>

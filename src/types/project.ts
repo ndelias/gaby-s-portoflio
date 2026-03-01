@@ -3,7 +3,8 @@ export type ProjectTypology =
   | "cultural"
   | "academic"
   | "commercial"
-  | "public";
+  | "public"
+  | "adaptive reuse";
 
 
 export interface ProjectImage {
@@ -33,6 +34,7 @@ export interface Project {
   year: string;
 
   client?: string;
+  coverImage?: ProjectImage;
   heroImage: ProjectImage;
   galleryImages: ProjectImage[];
   featured?: boolean;
