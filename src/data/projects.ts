@@ -88,8 +88,8 @@ export const projects: Project[] = [
       en: "An adaptive reuse proposal reimagining Teatro Blanquita as a living archive and community cultural anchor.",
       es: "Una propuesta de reutilizacion adaptativa que reimagina el Teatro Blanquita como un archivo vivo y ancla cultural comunitaria.",
     },
-    typology: "residential",
-    location: "Guatape, Colombia",
+    typology: "adaptive reuse",
+    location: "Mexico City, Mexico",
     year: "2025",
     heroImage: {
       src: "https://res.cloudinary.com/ddh4de7hy/image/upload/f_auto,q_auto:best,w_2400/teatro-blanquita-2025/experiential-elevation",
