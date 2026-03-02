@@ -8,7 +8,7 @@ import { transition } from "@/lib/motion";
 
 export default function Template({ children }: { children: React.ReactNode }) {
   const prefersReducedMotion = useReducedMotion();
-  const { direction, unfreezeViewport } = useNavigationDirection();
+  const { direction, hasNavigated, unfreezeViewport } = useNavigationDirection();
   const pathname = usePathname();
 
   // Unfreeze viewport + scroll to top BEFORE browser paint
@@ -25,6 +25,10 @@ export default function Template({ children }: { children: React.ReactNode }) {
     }
   }, [direction, pathname, unfreezeViewport]);
 
+  // Skip animation on initial page load (browser refresh / direct URL).
+  // Only animate on client-side navigations.
+  const shouldAnimate = hasNavigated && !prefersReducedMotion;
+
   const isSlide = direction === "forward" || direction === "back";
 
   const initialX =
@@ -35,14 +39,14 @@ export default function Template({ children }: { children: React.ReactNode }) {
   return (
     <motion.div
       key={pathname}
-      initial={{
-        opacity: prefersReducedMotion ? 1 : 0,
-        x: prefersReducedMotion ? 0 : initialX,
-      }}
+      initial={shouldAnimate ? {
+        opacity: 0,
+        x: initialX,
+      } : false}
       animate={{ opacity: 1, x: 0 }}
-      transition={prefersReducedMotion
-        ? { duration: 0 }
-        : isSlide ? transition.page : transition.section
+      transition={shouldAnimate
+        ? (isSlide ? transition.page : transition.section)
+        : { duration: 0 }
       }
     >
       {children}

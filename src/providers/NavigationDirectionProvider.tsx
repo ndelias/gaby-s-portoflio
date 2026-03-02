@@ -7,6 +7,7 @@ export type Direction = "forward" | "back" | "fade";
 
 interface NavigationDirectionContextValue {
   direction: Direction;
+  hasNavigated: boolean;
   setDirection: (dir: Direction) => void;
   prepareTransition: (dir?: Direction) => void;
   unfreezeViewport: () => void;
@@ -14,6 +15,7 @@ interface NavigationDirectionContextValue {
 
 const NavigationDirectionContext = createContext<NavigationDirectionContextValue>({
   direction: "forward",
+  hasNavigated: false,
   setDirection: () => {},
   prepareTransition: () => {},
   unfreezeViewport: () => {},
@@ -61,6 +63,7 @@ export function NavigationDirectionProvider({ children }: { children: React.Reac
   const directionRef = useRef<Direction>("forward");
   const explicitRef = useRef<Direction | null>(null);
   const frozenRef = useRef(false);
+  const hasNavigatedRef = useRef(false);
 
   const setDirection = useCallback((dir: Direction) => {
     explicitRef.current = dir;
@@ -109,6 +112,8 @@ export function NavigationDirectionProvider({ children }: { children: React.Reac
   }, []);
 
   if (prevPathRef.current !== pathname) {
+    hasNavigatedRef.current = true;
+
     if (explicitRef.current !== null) {
       directionRef.current = explicitRef.current;
       explicitRef.current = null;
@@ -121,7 +126,7 @@ export function NavigationDirectionProvider({ children }: { children: React.Reac
   }
 
   return (
-    <NavigationDirectionContext.Provider value={{ direction: directionRef.current, setDirection, prepareTransition, unfreezeViewport }}>
+    <NavigationDirectionContext.Provider value={{ direction: directionRef.current, hasNavigated: hasNavigatedRef.current, setDirection, prepareTransition, unfreezeViewport }}>
       {children}
     </NavigationDirectionContext.Provider>
   );

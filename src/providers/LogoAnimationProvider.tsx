@@ -14,6 +14,7 @@ interface LogoAnimationContextValue {
   phase: LogoAnimationPhase;
   setPhase: (phase: LogoAnimationPhase) => void;
   resetAnimation: () => void;
+  triggerAnimation: () => void;
   hasPlayed: boolean;
   navbarLogoRect: DOMRect | null;
   setNavbarLogoRect: (rect: DOMRect | null) => void;
@@ -23,6 +24,7 @@ export const LogoAnimationContext = createContext<LogoAnimationContextValue>({
   phase: "loading",
   setPhase: () => {},
   resetAnimation: () => {},
+  triggerAnimation: () => {},
   hasPlayed: false,
   navbarLogoRect: null,
   setNavbarLogoRect: () => {},
@@ -75,9 +77,14 @@ export function LogoAnimationProvider({
     }
   }, []);
 
+  // Force-replay the logo animation (used by navbar logo click)
+  const triggerAnimation = useCallback(() => {
+    setPhaseState("loading");
+  }, []);
+
   return (
     <LogoAnimationContext.Provider
-      value={{ phase, setPhase, resetAnimation, hasPlayed, navbarLogoRect, setNavbarLogoRect }}
+      value={{ phase, setPhase, resetAnimation, triggerAnimation, hasPlayed, navbarLogoRect, setNavbarLogoRect }}
     >
       {children}
     </LogoAnimationContext.Provider>

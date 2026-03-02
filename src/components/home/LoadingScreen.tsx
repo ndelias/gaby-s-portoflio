@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { createPortal } from "react-dom";
+import { motion } from "framer-motion";
 import { LogoSequencePlayer } from "./LogoSequencePlayer";
 import { useLogoAnimation } from "@/hooks/useLogoAnimation";
 import { transition } from "@/lib/motion";
@@ -13,17 +14,19 @@ const SEQUENCE_HEIGHT = 591;
 export function LoadingScreen() {
   const { phase, setPhase, navbarLogoRect } = useLogoAnimation();
   const [visible, setVisible] = useState(phase === "loading");
-  const [sequenceReady, setSequenceReady] = useState(false);
   const [sequenceDone, setSequenceDone] = useState(false);
   const [playKey, setPlayKey] = useState(0);
+  const [mounted, setMounted] = useState(false);
   const canvasRectRef = useRef<DOMRect | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  // SSR-safe: only portal after mount
+  useEffect(() => { setMounted(true); }, []);
 
   // Reset internal state whenever the phase goes back to "loading"
   useEffect(() => {
     if (phase === "loading") {
       setVisible(true);
-      setSequenceReady(false);
       setSequenceDone(false);
       canvasRectRef.current = null;
       setPlayKey((k) => k + 1);
@@ -32,16 +35,10 @@ export function LoadingScreen() {
 
   const shouldRender = phase !== "idle" && phase !== "complete";
 
+  // Called when all frames are preloaded — start playback immediately
   const onReady = useCallback(() => {
-    setSequenceReady(true);
-  }, []);
-
-  // Auto-play once frames are preloaded
-  useEffect(() => {
-    if (sequenceReady && phase === "loading") {
-      setPhase("playing");
-    }
-  }, [sequenceReady, phase, setPhase]);
+    setPhase("playing");
+  }, [setPhase]);
 
   const onComplete = useCallback(() => {
     setSequenceDone(true);
@@ -55,13 +52,10 @@ export function LoadingScreen() {
     setPhase("transitioning");
   }, [setPhase]);
 
-  // After transition animation completes
+  // After fly-to animation completes — remove overlay instantly
   const onTransitionComplete = useCallback(() => {
-    const timeout = setTimeout(() => {
-      setVisible(false);
-      setPhase("complete");
-    }, 300);
-    return () => clearTimeout(timeout);
+    setVisible(false);
+    setPhase("complete");
   }, [setPhase]);
 
   // Calculate fly-to animation values
@@ -86,40 +80,36 @@ export function LoadingScreen() {
     };
   };
 
-  if (!shouldRender) return null;
+  if (!shouldRender || !visible) return null;
 
-  return (
-    <AnimatePresence>
-      {visible && (
-        <motion.div
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-white"
-          exit={{ opacity: 0 }}
-          transition={transition.section}
-        >
-          <div ref={containerRef} className="w-[min(calc(100vw-40px),1000px)]">
-            {!sequenceDone && (
-              <LogoSequencePlayer
-                key={playKey}
-                playing={phase === "playing"}
-                onReady={onReady}
-                onComplete={onComplete}
-              />
-            )}
+  const overlay = (
+    <div className="fixed inset-0 z-[60] flex items-center justify-center bg-white">
+      <div ref={containerRef} className="w-[min(calc(100vw-40px),1000px)]">
+        {!sequenceDone && (
+          <LogoSequencePlayer
+            key={playKey}
+            playing={phase === "playing"}
+            onReady={onReady}
+            onComplete={onComplete}
+          />
+        )}
 
-            {sequenceDone && (
-              <motion.img
-                src="/images/logo-sequence/glb-084.png"
-                alt="GLB"
-                style={{ width: "100%", maxWidth: SEQUENCE_WIDTH, aspectRatio: "1000/591" }}
-                initial={{ x: 0, y: 0, scale: 1 }}
-                animate={getFlyToAnimation()}
-                transition={transition.section}
-                onAnimationComplete={onTransitionComplete}
-              />
-            )}
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+        {sequenceDone && (
+          <motion.img
+            src="/images/logo-sequence/glb-084.png"
+            alt="GLB"
+            style={{ width: "100%", maxWidth: SEQUENCE_WIDTH, aspectRatio: "1000/591" }}
+            initial={{ x: 0, y: 0, scale: 1 }}
+            animate={getFlyToAnimation()}
+            transition={transition.section}
+            onAnimationComplete={onTransitionComplete}
+          />
+        )}
+      </div>
+    </div>
   );
+
+  // SSR: render inline so the white overlay is in the initial HTML (no bounce).
+  // Client: portal to body so the template's motion.div transform can't displace it.
+  return mounted ? createPortal(overlay, document.body) : overlay;
 }
