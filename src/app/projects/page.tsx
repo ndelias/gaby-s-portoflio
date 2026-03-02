@@ -5,6 +5,7 @@ import { GridContainer } from "@/components/layout/GridContainer";
 import { Section } from "@/components/layout/Section";
 import { ProjectGrid } from "@/components/project/ProjectGrid";
 import { ToggleGroup } from "@/components/navigation/ToggleGroup";
+import { Divider } from "@/components/ui/Divider";
 import { Display } from "@/components/typography";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useViewMode } from "@/hooks/useViewMode";
@@ -26,7 +27,7 @@ export default function ProjectsPage() {
   return (
     <Section gap="sm">
       <GridContainer>
-        <div className="flex items-end justify-between mb-10 sm:mb-12">
+        <div className="flex items-end justify-between mb-4">
           <Display size="lg" as="h1">
             {t.projects.title}
           </Display>
@@ -36,6 +37,7 @@ export default function ProjectsPage() {
             onChange={setProjectViewMode}
           />
         </div>
+        <Divider className="mb-10 sm:mb-12" />
 
         <ProjectGrid
           projects={projects}

@@ -16,11 +16,12 @@ export default function AboutPage() {
   return (
     <Section gap="sm">
       <GridContainer>
-        <div className="mb-12 sm:mb-16">
+        <div className="mb-4">
           <Display size="lg" as="h1">
             {t.about.title}
           </Display>
         </div>
+        <Divider className="mb-12 sm:mb-16" />
 
         <ScrollReveal>
           <div className="grid grid-cols-4 sm:grid-cols-8 lg:grid-cols-12 gap-x-[var(--grid-gutter)] gap-y-10">

@@ -84,74 +84,85 @@ function Lightbox({
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90"
+      className="fixed inset-0 z-[100]"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={transition.element}
-      onClick={onClose}
     >
-      {/* Title — top left */}
-      <div className="absolute top-6 left-6 z-10">
-        {img.title && (
-          <p className="text-[length:var(--text-body)] font-medium text-white">
-            {img.title}
+      {/* Backdrop — clicking anywhere outside the image closes the lightbox */}
+      <div className="absolute inset-0 bg-black/90 cursor-pointer" onClick={onClose} />
+
+      {/* UI layer — sits above backdrop, clicks don't bubble to backdrop */}
+      <div className="relative z-10 flex items-center justify-center h-full pointer-events-none">
+
+        {/* Title — top left */}
+        <div className="absolute top-6 left-6 pointer-events-none">
+          {img.title && (
+            <p className="text-[length:var(--text-body)] font-medium text-white">
+              {img.title}
+            </p>
+          )}
+          <p className="text-[length:var(--text-label)] text-white/50 mt-1">
+            {index + 1} / {images.length}
           </p>
+        </div>
+
+        {/* Close — top right */}
+        <button
+          className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </button>
+
+        {/* Prev */}
+        {index > 0 && (
+          <button
+            className="absolute left-6 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
+            onClick={onPrev}
+          >
+            <ArrowIcon direction="left" />
+          </button>
         )}
-        <p className="text-[length:var(--text-label)] text-white/50 mt-1">
-          {index + 1} / {images.length}
-        </p>
+
+        {/* Next */}
+        {index < images.length - 1 && (
+          <button
+            className="absolute right-6 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
+            onClick={onNext}
+          >
+            <ArrowIcon direction="right" />
+          </button>
+        )}
+
+        {/* Image — container sized exactly to the rendered image so no transparent dead zones */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={index}
+            style={{
+              position: "relative",
+              width: `min(90vw, calc(85vh * ${img.width / img.height}))`,
+              aspectRatio: `${img.width} / ${img.height}`,
+            }}
+            className="pointer-events-auto"
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.97 }}
+            transition={transition.element}
+          >
+            <Image
+              src={img.src}
+              alt={img.alt}
+              fill
+              className="object-contain"
+              sizes="90vw"
+              priority
+            />
+          </motion.div>
+        </AnimatePresence>
+
       </div>
-
-      {/* Close — top right */}
-      <button
-        className="absolute top-6 right-6 z-10 text-white/70 hover:text-white transition-colors duration-[200ms] cursor-pointer"
-        onClick={onClose}
-      >
-        <CloseIcon />
-      </button>
-
-      {/* Prev */}
-      {index > 0 && (
-        <button
-          className="absolute left-6 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer"
-          onClick={(e) => { e.stopPropagation(); onPrev(); }}
-        >
-          <ArrowIcon direction="left" />
-        </button>
-      )}
-
-      {/* Next */}
-      {index < images.length - 1 && (
-        <button
-          className="absolute right-6 top-1/2 -translate-y-1/2 z-10 text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer"
-          onClick={(e) => { e.stopPropagation(); onNext(); }}
-        >
-          <ArrowIcon direction="right" />
-        </button>
-      )}
-
-      {/* Image */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={index}
-          className="relative w-[90vw] h-[85vh]"
-          initial={{ opacity: 0, scale: 0.97 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.97 }}
-          transition={transition.element}
-          onClick={(e) => e.stopPropagation()}
-        >
-          <Image
-            src={img.src}
-            alt={img.alt}
-            fill
-            className="object-contain"
-            sizes="90vw"
-            priority
-          />
-        </motion.div>
-      </AnimatePresence>
     </motion.div>
   );
 }
@@ -170,8 +181,12 @@ function GalleryImage({
   const aspectW = isRotated ? img.height : img.width;
   const aspectH = isRotated ? img.width : img.height;
 
+  const imgClass = isRotated
+    ? "object-contain"
+    : "object-cover transition-transform duration-500 ease-out group-hover/img:scale-[1.03]";
+
   return (
-    <div className="group/img overflow-hidden">
+    <div className="group/img">
       <div
         className="relative w-full overflow-hidden bg-gray-100 cursor-pointer"
         style={{ aspectRatio: `${aspectW} / ${aspectH}` }}
@@ -181,24 +196,22 @@ function GalleryImage({
           src={img.src}
           alt={img.alt}
           fill
-          className={isRotated ? "object-contain" : "object-cover"}
+          className={imgClass}
           style={isRotated ? { transform: `rotate(${img.rotate}deg)` } : undefined}
           sizes={sizes}
         />
       </div>
 
-      {/* Title + expand dropdown below image */}
-      <div className="grid grid-rows-[0fr] group-hover/img:grid-rows-[1fr] transition-[grid-template-rows] duration-[250ms] ease-out">
-        <div className="overflow-hidden">
-          <div className="h-px w-full bg-gray-300" />
-          <div className="flex items-center justify-between px-4 py-2.5 cursor-pointer" onClick={onClick}>
-            <p className="text-[length:var(--text-label)] font-medium text-gray-500">
-              {img.title || img.alt}
-            </p>
-            <span className="text-gray-400 shrink-0 ml-3">
-              <ExpandIcon />
-            </span>
-          </div>
+      {/* Title fades in on hover — space always reserved to prevent layout shift */}
+      <div className="opacity-0 group-hover/img:opacity-100 transition-opacity duration-[250ms] ease-out">
+        <div className="h-px w-full bg-gray-200 mt-3" />
+        <div className="flex items-center justify-between px-0 py-2.5 cursor-pointer" onClick={onClick}>
+          <p className="text-[length:var(--text-label)] font-medium text-gray-500">
+            {img.title || img.alt}
+          </p>
+          <span className="text-gray-400 shrink-0 ml-3">
+            <ExpandIcon />
+          </span>
         </div>
       </div>
     </div>
@@ -214,12 +227,21 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
   const nextImage = useCallback(() => setLightboxIndex((i) => i !== null && i < images.length - 1 ? i + 1 : i), [images.length]);
 
   // Build flat index map so each tile knows its position in the images array
-  const rows: { images: ProjectImage[]; startIndex: number; type?: "tall-left" }[] = [];
+  const rows: { images: ProjectImage[]; startIndex: number; type?: "tall-left" | "wide" | "medium" | "small" }[] = [];
   let i = 0;
 
   while (i < images.length) {
     const img = images[i];
-    if (img.layout === "tall-left") {
+    if (img.layout === "wide") {
+      rows.push({ images: [img], startIndex: i, type: "wide" });
+      i++;
+    } else if (img.layout === "medium") {
+      rows.push({ images: [img], startIndex: i, type: "medium" });
+      i++;
+    } else if (img.layout === "small") {
+      rows.push({ images: [img], startIndex: i, type: "small" });
+      i++;
+    } else if (img.layout === "tall-left") {
       const start = i;
       const group: ProjectImage[] = [img];
       if (i + 1 < images.length) group.push(images[i + 1]);
@@ -285,13 +307,15 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
           }
 
           if (row.images.length === 1) {
+            const maxW = row.type === "wide" ? "max-w-[85%]" : row.type === "small" ? "max-w-[40%]" : row.type === "medium" ? "max-w-[50%]" : "max-w-[70%]";
+            const sizes = row.type === "wide" ? "85vw" : row.type === "small" ? "40vw" : row.type === "medium" ? "50vw" : "70vw";
             return (
               <ScrollFade key={rowIndex}>
                 <div className="min-h-[60vh] sm:min-h-screen flex items-center justify-center">
-                  <div className="max-w-[70%] mx-auto w-full">
+                  <div className={`${maxW} mx-auto w-full`}>
                     <GalleryImage
                       img={row.images[0]}
-                      sizes="70vw"
+                      sizes={sizes}
                       onClick={() => setLightboxIndex(row.startIndex)}
                     />
                   </div>
