@@ -23,8 +23,36 @@ export function useNavigationDirection() {
   return useContext(NavigationDirectionContext);
 }
 
+// Logical left-to-right order of top-level pages
+const PAGE_ORDER: Record<string, number> = {
+  "/": 0,
+  "/projects": 1,
+  "/about": 2,
+};
+
 function getDepth(path: string) {
   return path.split("/").filter(Boolean).length;
+}
+
+function getPageOrder(path: string): number {
+  if (PAGE_ORDER[path] !== undefined) return PAGE_ORDER[path];
+  const base = "/" + path.split("/").filter(Boolean)[0];
+  if (PAGE_ORDER[base] !== undefined) return PAGE_ORDER[base];
+  return 1;
+}
+
+/** Compute slide direction between two paths (used by TransitionLink and auto-inference). */
+export function getNavigationDirection(from: string, to: string): Direction {
+  const fromDepth = getDepth(from);
+  const toDepth = getDepth(to);
+
+  if (toDepth > fromDepth) return "forward";
+  if (toDepth < fromDepth) return "back";
+
+  // Same depth — use page order
+  const fromOrder = getPageOrder(from);
+  const toOrder = getPageOrder(to);
+  return toOrder >= fromOrder ? "forward" : "back";
 }
 
 export function NavigationDirectionProvider({ children }: { children: React.ReactNode }) {
@@ -85,18 +113,8 @@ export function NavigationDirectionProvider({ children }: { children: React.Reac
       directionRef.current = explicitRef.current;
       explicitRef.current = null;
     } else {
-      const prevDepth = getDepth(prevPathRef.current);
-      const currDepth = getDepth(pathname);
-
-      if (currDepth > prevDepth) {
-        directionRef.current = "forward";
-      } else if (currDepth < prevDepth) {
-        // Going back to a shallower route (e.g. home) — fade only
-        directionRef.current = "fade";
-      } else {
-        // Same depth (e.g. project→project) — default to forward
-        directionRef.current = "forward";
-      }
+      // Auto-infer direction using depth + page order
+      directionRef.current = getNavigationDirection(prevPathRef.current, pathname);
     }
 
     prevPathRef.current = pathname;

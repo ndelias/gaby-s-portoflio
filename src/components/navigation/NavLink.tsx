@@ -1,7 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { TransitionLink } from "@/components/ui/TransitionLink";
+import { getNavigationDirection } from "@/providers/NavigationDirectionProvider";
 import { cn } from "@/lib/utils";
 
 interface NavLinkProps {
@@ -13,10 +14,12 @@ interface NavLinkProps {
 export function NavLink({ href, children, className }: NavLinkProps) {
   const pathname = usePathname();
   const isActive = pathname === href || pathname.startsWith(href + "/");
+  const direction = getNavigationDirection(pathname, href);
 
   return (
-    <Link
+    <TransitionLink
       href={href}
+      direction={direction}
       className={cn(
         "text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] transition-all duration-[200ms]",
         isActive
@@ -26,6 +29,6 @@ export function NavLink({ href, children, className }: NavLinkProps) {
       )}
     >
       {children}
-    </Link>
+    </TransitionLink>
   );
 }

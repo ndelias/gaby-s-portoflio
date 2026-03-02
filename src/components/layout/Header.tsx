@@ -1,11 +1,11 @@
 "use client";
 
-import Link from "next/link";
 import Image from "next/image";
 import { useRef, useCallback, useEffect } from "react";
 import { NavLink } from "@/components/navigation/NavLink";
 import { LanguageToggle } from "@/components/navigation/LanguageToggle";
 import { MobileMenu } from "@/components/navigation/MobileMenu";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useLogoAnimation } from "@/hooks/useLogoAnimation";
 import { navigationItems } from "@/data/navigation";
@@ -44,7 +44,7 @@ export function Header() {
           </div>
 
           <div className="justify-self-center">
-            <Link href="/" aria-label="Home">
+            <TransitionLink href="/" direction="back" aria-label="Home">
               <Image
                 ref={logoRef}
                 src="/images/glb-logo.png"
@@ -56,7 +56,7 @@ export function Header() {
                 unoptimized
                 priority
               />
-            </Link>
+            </TransitionLink>
           </div>
 
           {/* Desktop nav */}
