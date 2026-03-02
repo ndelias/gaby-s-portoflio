@@ -3,11 +3,12 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 import { LanguageToggle } from "./LanguageToggle";
 import { useTranslation } from "@/hooks/useTranslation";
+import { getNavigationDirection } from "@/providers/NavigationDirectionProvider";
 import { navigationItems } from "@/data/navigation";
 import { transition } from "@/lib/motion";
 
@@ -82,8 +83,9 @@ export function MobileMenu() {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ ...transition.element, delay: 0.05 + i * 0.05 }}
                 >
-                  <Link
+                  <TransitionLink
                     href={link.href}
+                    direction={getNavigationDirection(pathname, link.href)}
                     onClick={close}
                     className={cn(
                       "text-2xl font-medium uppercase tracking-[0.1em] transition-all duration-[200ms]",
@@ -93,7 +95,7 @@ export function MobileMenu() {
                     )}
                   >
                     {link.label}
-                  </Link>
+                  </TransitionLink>
                 </motion.div>
               );
             })}

@@ -1,8 +1,8 @@
 "use client";
 
-import Link from "next/link";
 import { ProjectCard } from "./ProjectCard";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 import { Caption, Label } from "@/components/typography";
 import { Divider } from "@/components/ui/Divider";
 import { useTranslation } from "@/hooks/useTranslation";
@@ -33,7 +33,7 @@ export function ProjectGrid({ projects, viewMode }: ProjectGridProps) {
         <Divider className="mb-0" />
         {projects.map((project, i) => (
           <ScrollReveal key={project.slug} delay={i * 0.05}>
-            <Link
+            <TransitionLink
               href={`/projects/${project.slug}`}
               className="group block"
             >
@@ -50,7 +50,7 @@ export function ProjectGrid({ projects, viewMode }: ProjectGridProps) {
                   <Caption>{project.year}</Caption>
                 </div>
               </div>
-            </Link>
+            </TransitionLink>
           </ScrollReveal>
         ))}
       </div>

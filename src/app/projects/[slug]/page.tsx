@@ -1,7 +1,6 @@
 "use client";
 
 import { use } from "react";
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { GridContainer } from "@/components/layout/GridContainer";
 import { Section } from "@/components/layout/Section";
@@ -9,10 +8,10 @@ import { ProjectHero } from "@/components/project/ProjectHero";
 import { ProjectMeta } from "@/components/project/ProjectMeta";
 import { ProjectGallery } from "@/components/project/ProjectGallery";
 import { ScrollReveal } from "@/components/ui/ScrollReveal";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 import { Divider } from "@/components/ui/Divider";
 import { Display, Body, Label } from "@/components/typography";
 import { useTranslation } from "@/hooks/useTranslation";
-import { useNavigationDirection } from "@/providers/NavigationDirectionProvider";
 import { getProjectBySlug, getAdjacentProjects } from "@/data/projects";
 
 interface ProjectPageProps {
@@ -22,7 +21,6 @@ interface ProjectPageProps {
 export default function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = use(params);
   const { locale, t } = useTranslation();
-  const { setDirection } = useNavigationDirection();
   const project = getProjectBySlug(slug);
 
   if (!project) {
@@ -72,10 +70,10 @@ export default function ProjectPage({ params }: ProjectPageProps) {
           <div className="grid grid-cols-2 gap-x-[var(--grid-gutter)] items-center">
             <div>
               {previous && (
-                <Link
+                <TransitionLink
                   href={`/projects/${previous.slug}`}
                   className="group block"
-                  onClick={() => setDirection("back")}
+                  direction="back"
                 >
                   <Label className="mb-2 block">
                     {t.projects.previousProject}
@@ -83,15 +81,15 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                   <span className="text-[length:var(--text-body)] font-medium text-gray-900 group-hover:text-blush transition-colors duration-[200ms]">
                     {previous.title}
                   </span>
-                </Link>
+                </TransitionLink>
               )}
             </div>
             <div className="text-right">
               {next && (
-                <Link
+                <TransitionLink
                   href={`/projects/${next.slug}`}
                   className="group block"
-                  onClick={() => setDirection("forward")}
+                  direction="forward"
                 >
                   <Label className="mb-2 block">
                     {t.projects.nextProject}
@@ -99,7 +97,7 @@ export default function ProjectPage({ params }: ProjectPageProps) {
                   <span className="text-[length:var(--text-body)] font-medium text-gray-900 group-hover:text-blush transition-colors duration-[200ms]">
                     {next.title}
                   </span>
-                </Link>
+                </TransitionLink>
               )}
             </div>
           </div>

@@ -13,7 +13,7 @@ import { GridContainer } from "./GridContainer";
 
 export function Header() {
   const { t } = useTranslation();
-  const { phase, setNavbarLogoRect } = useLogoAnimation();
+  const { phase, setNavbarLogoRect, triggerAnimation } = useLogoAnimation();
   const logoRef = useRef<HTMLImageElement>(null);
 
   const reportRect = useCallback(() => {
@@ -44,7 +44,7 @@ export function Header() {
           </div>
 
           <div className="justify-self-center">
-            <Link href="/" aria-label="Home">
+            <Link href="/" aria-label="Home" onClick={triggerAnimation}>
               <Image
                 ref={logoRef}
                 src="/images/glb-logo.png"

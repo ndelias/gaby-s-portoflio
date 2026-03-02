@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 import type { Project } from "@/types";
 import type { Locale } from "@/types/locale";
 
@@ -65,7 +65,7 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
       ref={outerRef}
       className="scroll-mt-[112px] sm:scroll-mt-[128px] lg:scroll-mt-20 py-[15vh] sm:py-[18vh] lg:py-6"
     >
-      <Link
+      <TransitionLink
         href={`/projects/${project.slug}`}
         className="block group"
         onMouseEnter={() => setHovered(true)}
@@ -122,7 +122,7 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
             Read More
           </span>
         </div>
-      </Link>
+      </TransitionLink>
     </div>
   );
 }

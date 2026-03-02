@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import type { Project } from "@/types";
 
 interface ProjectDirectoryProps {
@@ -14,6 +15,10 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
   const targetRef = useRef(0);
   const currentRef = useRef(0);
   const rafRef = useRef<number>(0);
+  const [mounted, setMounted] = useState(false);
+
+  // SSR-safe: only portal after mount
+  useEffect(() => { setMounted(true); }, []);
 
   const handleClick = (slug: string) => {
     const el = document.getElementById(`project-${slug}`);
@@ -66,7 +71,10 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
     }
   }, [activeSlug]);
 
-  return (
+  // Portal to body so fixed positioning isn't broken by the template's
+  // motion.div transform (ancestor transforms create a new containing block
+  // for fixed descendants, causing the sidebar to shift during page slides).
+  const content = (
     <>
       {/* Desktop: fixed left column */}
       <nav className="fixed left-0 top-20 bottom-0 w-[240px] z-[45] hidden lg:flex flex-col justify-between pt-12 pl-10 pr-6 bg-white">
@@ -106,7 +114,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
             LinkedIn
           </a>
           <a
-            href="/resume.pdf"
+            href="https://drive.google.com/file/d/1PyPrwmrgAmXxqMMDOuE7XK1AbR5fti1V/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] text-gray-300 hover:text-blush transition-colors duration-[200ms]"
@@ -147,4 +155,6 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
       </div>
     </>
   );
+
+  return mounted ? createPortal(content, document.body) : null;
 }

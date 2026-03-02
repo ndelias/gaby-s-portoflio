@@ -36,12 +36,20 @@ export function LogoSequencePlayer({
   // Preload all frames
   useEffect(() => {
     let loaded = 0;
+    let cancelled = false;
     const images: HTMLImageElement[] = [];
+
+    // Reset refs for this mount cycle
+    readyRef.current = false;
+    completedRef.current = false;
+    frameIndexRef.current = 0;
+    lastTimeRef.current = 0;
 
     for (let i = 0; i < TOTAL_FRAMES; i++) {
       const img = new Image();
       img.src = getFrameSrc(i);
       img.onload = () => {
+        if (cancelled) return;
         loaded++;
         if (loaded === TOTAL_FRAMES && !readyRef.current) {
           readyRef.current = true;
@@ -57,6 +65,8 @@ export function LogoSequencePlayer({
       };
       images[i] = img;
     }
+
+    return () => { cancelled = true; };
   }, [onReady]);
 
   // Playback loop
