@@ -47,13 +47,13 @@ export const translations: Translations = {
       ],
       experienceEntries: [
         {
-          role: "Architectural Intern",
+          role: "Exhibition Designer",
           studio: "DNA Architecture + Design",
           period: "Jun 2025 — Present",
           location: "Los Angeles, CA",
         },
         {
-          role: "Exhibition Designer",
+          role: "Architectural Intern",
           studio: "DNA Architecture + Design",
           period: "Jun 2025 — Present",
           location: "Los Angeles, CA",
@@ -133,13 +133,13 @@ export const translations: Translations = {
       ],
       experienceEntries: [
         {
-          role: "Pasante de Arquitectura",
+          role: "Disenadora de Exposiciones",
           studio: "DNA Architecture + Design",
           period: "Jun 2025 — Presente",
           location: "Los Angeles, CA",
         },
         {
-          role: "Disenadora de Exposiciones",
+          role: "Pasante de Arquitectura",
           studio: "DNA Architecture + Design",
           period: "Jun 2025 — Presente",
           location: "Los Angeles, CA",
