@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Project } from "@/types";
+import { TransitionLink } from "@/components/ui/TransitionLink";
 import { Caption } from "@/components/typography";
 import { transition } from "@/lib/motion";
 
@@ -13,7 +13,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <Link href={`/projects/${project.slug}`} className="group block">
+    <TransitionLink href={`/projects/${project.slug}`} className="group block">
       <div className="overflow-hidden">
         <motion.div
           whileHover={{ scale: 1.03 }}
@@ -38,6 +38,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {project.location}, {project.year}
         </Caption>
       </div>
-    </Link>
+    </TransitionLink>
   );
 }
