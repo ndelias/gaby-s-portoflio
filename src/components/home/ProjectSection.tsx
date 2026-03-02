@@ -63,7 +63,7 @@ export function ProjectSection({ project, locale, priority }: ProjectSectionProp
     <div
       id={`project-${project.slug}`}
       ref={outerRef}
-      className="scroll-mt-[112px] sm:scroll-mt-[128px] lg:scroll-mt-20 py-4 lg:py-6"
+      className="scroll-mt-[112px] sm:scroll-mt-[128px] lg:scroll-mt-20 py-[15vh] sm:py-[18vh] lg:py-6"
     >
       <Link
         href={`/projects/${project.slug}`}

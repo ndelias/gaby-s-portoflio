@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { ScrollFade } from "@/components/ui/ScrollFade";
@@ -299,27 +299,45 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
     <>
       <div className="flex flex-col">
         {rows.map((row, rowIndex) => {
+          /* ── Mobile: every image gets its own full-width row ── */
+          const mobileImages = row.images.map((img, imgIndex) => (
+            <ScrollFade key={`${rowIndex}-m-${imgIndex}`}>
+              <div className="min-h-screen flex items-center justify-center sm:hidden">
+                <div className="max-w-[85%] mx-auto w-full">
+                  <GalleryImage
+                    img={img}
+                    sizes="100vw"
+                    onClick={() => setLightboxIndex(row.startIndex + imgIndex)}
+                  />
+                </div>
+              </div>
+            </ScrollFade>
+          ));
+
+          /* ── Desktop: preserve existing grid layouts ── */
+          let desktopRow: React.ReactNode;
+
           if (row.type === "tall-left" && row.images.length === 3) {
-            return (
-              <ScrollFade key={rowIndex}>
-                <div className="min-h-[60vh] sm:min-h-screen flex items-center justify-center">
-                  <div className="max-w-[85%] mx-auto w-full grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-[var(--grid-gutter)]">
+            desktopRow = (
+              <ScrollFade key={`${rowIndex}-d`}>
+                <div className="min-h-screen hidden sm:flex items-center justify-center">
+                  <div className="max-w-[85%] mx-auto w-full grid grid-cols-2 gap-[var(--grid-gutter)]">
                     <div>
                       <GalleryImage
                         img={row.images[0]}
-                        sizes="(max-width: 639px) 100vw, 42vw"
+                        sizes="42vw"
                         onClick={() => setLightboxIndex(row.startIndex)}
                       />
                     </div>
                     <div className="flex flex-col justify-end gap-3">
                       <GalleryImage
                         img={row.images[1]}
-                        sizes="(max-width: 639px) 100vw, 42vw"
+                        sizes="42vw"
                         onClick={() => setLightboxIndex(row.startIndex + 1)}
                       />
                       <GalleryImage
                         img={row.images[2]}
-                        sizes="(max-width: 639px) 100vw, 42vw"
+                        sizes="42vw"
                         onClick={() => setLightboxIndex(row.startIndex + 2)}
                       />
                     </div>
@@ -327,14 +345,56 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
                 </div>
               </ScrollFade>
             );
+          } else if (row.images.length === 1) {
+            const maxW = row.type === "wide" ? "max-w-[85%]" : row.type === "small" ? "max-w-[40%] sm:max-w-[40%]" : row.type === "medium" ? "max-w-[50%] sm:max-w-[50%]" : "max-w-[70%] sm:max-w-[70%]";
+            const sizes = row.type === "wide" ? "85vw" : row.type === "small" ? "40vw" : row.type === "medium" ? "50vw" : "70vw";
+            desktopRow = (
+              <ScrollFade key={`${rowIndex}-d`}>
+                <div className="min-h-screen hidden sm:flex items-center justify-center">
+                  <div className={`${maxW} mx-auto w-full`}>
+                    <GalleryImage
+                      img={row.images[0]}
+                      sizes={sizes}
+                      onClick={() => setLightboxIndex(row.startIndex)}
+                    />
+                  </div>
+                </div>
+              </ScrollFade>
+            );
+          } else {
+            const colClass = row.images.length === 3
+              ? "grid grid-cols-3 gap-[var(--grid-gutter)] items-end"
+              : "grid grid-cols-2 gap-[var(--grid-gutter)] items-end";
+
+            const sizesAttr = row.images.length === 3 ? "28vw" : "42vw";
+
+            desktopRow = (
+              <ScrollFade key={`${rowIndex}-d`}>
+                <div className="min-h-screen hidden sm:flex items-center justify-center">
+                  <div className="max-w-[85%] mx-auto w-full">
+                    <div className={colClass}>
+                      {row.images.map((img, imgIndex) => (
+                        <GalleryImage
+                          key={imgIndex}
+                          img={img}
+                          sizes={sizesAttr}
+                          onClick={() => setLightboxIndex(row.startIndex + imgIndex)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </ScrollFade>
+            );
           }
 
+          /* Single-image rows share the same layout on both, skip duplicate */
           if (row.images.length === 1) {
-            const maxW = row.type === "wide" ? "max-w-[85%]" : row.type === "small" ? "max-w-[40%]" : row.type === "medium" ? "max-w-[50%]" : "max-w-[70%]";
-            const sizes = row.type === "wide" ? "85vw" : row.type === "small" ? "40vw" : row.type === "medium" ? "50vw" : "70vw";
+            const maxW = row.type === "wide" ? "max-w-[85%]" : row.type === "small" ? "max-w-[85%] sm:max-w-[40%]" : row.type === "medium" ? "max-w-[85%] sm:max-w-[50%]" : "max-w-[85%] sm:max-w-[70%]";
+            const sizes = row.type === "wide" ? "85vw" : row.type === "small" ? "(max-width: 639px) 85vw, 40vw" : row.type === "medium" ? "(max-width: 639px) 85vw, 50vw" : "(max-width: 639px) 85vw, 70vw";
             return (
               <ScrollFade key={rowIndex}>
-                <div className="min-h-[60vh] sm:min-h-screen flex items-center justify-center">
+                <div className="min-h-screen flex items-center justify-center">
                   <div className={`${maxW} mx-auto w-full`}>
                     <GalleryImage
                       img={row.images[0]}
@@ -347,31 +407,11 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
             );
           }
 
-          const colClass = row.images.length === 3
-            ? "grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-[var(--grid-gutter)] items-end"
-            : "grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-[var(--grid-gutter)] items-end";
-
-          const sizesAttr = row.images.length === 3
-            ? "(max-width: 639px) 100vw, 28vw"
-            : "(max-width: 639px) 100vw, 42vw";
-
           return (
-            <ScrollFade key={rowIndex}>
-              <div className="min-h-[60vh] sm:min-h-screen flex items-center justify-center">
-                <div className="max-w-[85%] mx-auto w-full">
-                  <div className={colClass}>
-                    {row.images.map((img, imgIndex) => (
-                      <GalleryImage
-                        key={imgIndex}
-                        img={img}
-                        sizes={sizesAttr}
-                        onClick={() => setLightboxIndex(row.startIndex + imgIndex)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </ScrollFade>
+            <React.Fragment key={rowIndex}>
+              {mobileImages}
+              {desktopRow}
+            </React.Fragment>
           );
         })}
       </div>

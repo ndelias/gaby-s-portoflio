@@ -8,7 +8,7 @@ export function ProjectArchive() {
   const { locale } = useTranslation();
 
   return (
-    <section className="lg:ml-[240px]">
+    <section className="pb-0 lg:ml-[240px]">
       {projects.map((project, i) => (
         <ProjectSection
           key={project.slug}
