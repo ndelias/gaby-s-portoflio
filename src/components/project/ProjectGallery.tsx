@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { ScrollFade } from "@/components/ui/ScrollFade";
 import { transition } from "@/lib/motion";
 import type { ProjectImage } from "@/types";
@@ -67,12 +67,23 @@ function Lightbox({
   onNext: () => void;
 }) {
   const img = images[index];
+  const [direction, setDirection] = useState(0);
+
+  const handlePrev = useCallback(() => {
+    setDirection(-1);
+    onPrev();
+  }, [onPrev]);
+
+  const handleNext = useCallback(() => {
+    setDirection(1);
+    onNext();
+  }, [onNext]);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") onPrev();
-      if (e.key === "ArrowRight") onNext();
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") handleNext();
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKey);
@@ -80,7 +91,12 @@ function Lightbox({
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKey);
     };
-  }, [onClose, onPrev, onNext]);
+  }, [onClose, handlePrev, handleNext]);
+
+  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (info.offset.x > 50 && index > 0) handlePrev();
+    else if (info.offset.x < -50 && index < images.length - 1) handleNext();
+  };
 
   return (
     <motion.div
@@ -110,8 +126,9 @@ function Lightbox({
 
         {/* Close — top right */}
         <button
-          className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
+          className="absolute top-4 right-4 p-2.5 rounded-full bg-white/10 sm:bg-transparent text-white/70 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
           onClick={onClose}
+          aria-label="Close lightbox"
         >
           <CloseIcon />
         </button>
@@ -119,8 +136,9 @@ function Lightbox({
         {/* Prev */}
         {index > 0 && (
           <button
-            className="absolute left-6 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
-            onClick={onPrev}
+            className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/10 sm:bg-transparent text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
+            onClick={handlePrev}
+            aria-label="Previous image"
           >
             <ArrowIcon direction="left" />
           </button>
@@ -129,15 +147,16 @@ function Lightbox({
         {/* Next */}
         {index < images.length - 1 && (
           <button
-            className="absolute right-6 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
-            onClick={onNext}
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/10 sm:bg-transparent text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
+            onClick={handleNext}
+            aria-label="Next image"
           >
             <ArrowIcon direction="right" />
           </button>
         )}
 
         {/* Image — container sized exactly to the rendered image so no transparent dead zones */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={index}
             style={{
@@ -146,16 +165,20 @@ function Lightbox({
               aspectRatio: `${img.width} / ${img.height}`,
             }}
             className="pointer-events-auto"
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.97 }}
+            initial={{ opacity: 0, x: direction * 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: direction * -60 }}
             transition={transition.element}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={handleDragEnd}
           >
             <Image
               src={img.src}
               alt={img.alt}
               fill
-              className="object-contain"
+              className="object-contain pointer-events-none"
               sizes="90vw"
               priority
             />
@@ -202,8 +225,8 @@ function GalleryImage({
         />
       </div>
 
-      {/* Title fades in on hover — space always reserved to prevent layout shift */}
-      <div className="opacity-0 group-hover/img:opacity-100 transition-opacity duration-[250ms] ease-out">
+      {/* Title — always visible on mobile, hover-reveal on desktop */}
+      <div className="lg:opacity-0 lg:group-hover/img:opacity-100 transition-opacity duration-[250ms] ease-out">
         <div className="h-px w-full bg-gray-200 mt-3" />
         <div className="flex items-center justify-between px-0 py-2.5 cursor-pointer" onClick={onClick}>
           <p className="text-[length:var(--text-label)] font-medium text-gray-500">

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRef, useCallback, useEffect } from "react";
 import { NavLink } from "@/components/navigation/NavLink";
 import { LanguageToggle } from "@/components/navigation/LanguageToggle";
+import { MobileMenu } from "@/components/navigation/MobileMenu";
 import { useTranslation } from "@/hooks/useTranslation";
 import { useLogoAnimation } from "@/hooks/useLogoAnimation";
 import { navigationItems } from "@/data/navigation";
@@ -58,8 +59,9 @@ export function Header() {
             </Link>
           </div>
 
+          {/* Desktop nav */}
           <div
-            className="flex items-center justify-end gap-6 sm:gap-8 transition-opacity duration-[400ms]"
+            className="hidden lg:flex items-center justify-end gap-8 transition-opacity duration-[400ms]"
             style={{ opacity: animationDone ? 1 : 0 }}
           >
             {navigationItems.map((item) => (
@@ -68,6 +70,14 @@ export function Header() {
               </NavLink>
             ))}
             <LanguageToggle />
+          </div>
+
+          {/* Mobile hamburger */}
+          <div
+            className="flex lg:hidden items-center justify-end transition-opacity duration-[400ms]"
+            style={{ opacity: animationDone ? 1 : 0 }}
+          >
+            <MobileMenu />
           </div>
         </nav>
       </GridContainer>

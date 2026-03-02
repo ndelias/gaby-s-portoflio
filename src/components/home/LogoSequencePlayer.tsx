@@ -111,7 +111,7 @@ export function LogoSequencePlayer({
       width={CANVAS_WIDTH}
       height={CANVAS_HEIGHT}
       className={className}
-      style={{ width: 1000, height: 591 }}
+      style={{ width: "100%", maxWidth: 1000, aspectRatio: "1000 / 591" }}
     />
   );
 }
