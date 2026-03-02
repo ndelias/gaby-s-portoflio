@@ -31,7 +31,7 @@ export const translations: Translations = {
       experience: "Experience",
       contact: "Contact",
       bio: [
-        "Hi, my name is Gaby! As a designer I have found a strong interest in education, healthcare, exhibition and installation projects. All of these typologies draw my intention for their ability to truly impact individual lived experiences. I am driven by a belief that art and design should feel accessible, inclusive, and deeply connected to the people who experience them.",
+        "Hi, my name is Gaby! As a designer I have found a strong interest in education, healthcare, exhibition and installation projects. All of these typologies draw my attention for their ability to truly impact individual lived experiences. I am driven by a belief that art and design should feel accessible, inclusive, and deeply connected to the people who experience them.",
         "My professional experience spans architectural design, exhibition development, and museum experiences. I have contributed to commercial, healthcare, residential, and curatorial projects through 3D modeling, rendering, and technical drawing, while also designing vitrines and translating curatorial concepts into spatial experiences for exhibitions.",
         "Across all of my work, I approach architecture as more than form-making; I see it as a medium for connection. My design process is rooted in research, spatial awareness, and a desire to create environments that foster curiosity, reflection, and shared experience.",
       ],
