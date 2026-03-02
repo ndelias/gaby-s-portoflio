@@ -11,7 +11,7 @@ export function Footer() {
   const content = (
     <>
       <Divider className="mb-8" />
-      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="flex flex-row items-center justify-between gap-4">
         <p className="text-[length:var(--text-label)] font-light text-gray-500">
           --- Gabriella Batista Portfolio ---
         </p>
