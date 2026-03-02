@@ -2,7 +2,7 @@ import type { Project } from "@/types";
 
 export const projects: Project[] = [
   {
-    slug: "centro-cultural-la-ceiba",
+    slug: "desert-fabric",
     title: "Desert Fabric",
     description: {
       en: "The structure tells a story of naturality, designed to feel as if it belongs to Joshua Tree and has always been there. It acts as an installation that represents the essence of the desert through its form, flowing the natural landscape and echoing its textures and colors. Rather than reading as an intervention, the project aims to feel like a pre-existing condition, something that the desert itself created. The building becomes an inhabitable work of art that becomes a home for the work belonging to the desert's artist.",
@@ -51,7 +51,7 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "biblioteca-del-rio",
+    slug: "falda-cielo",
     title: "Falda Cielo",
     description: {
       en: "Tehuana dress centers the strength and visibility of women from the Isthmus of Tehuantepec, who became admired for their bold color choices and the care put into their garments. Their wide skirts (enaguas) and embroidered textiles carry stories of daily life, nature, and belief, and have become a symbol of indigenous pride and resistance. This design translates that presence into form, using the skirt's volume, movement, and logic as the pavilion's primary architectural expression. The skirts take different forms, using structural boning holding their shape. Then they are attached to a cable system forming their pattern in the sky.",
@@ -90,7 +90,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "refugio-guatape",
+    slug: "teatro-blanquita-revival",
     title: "Teatro Blanquita Revival",
     description: {
       en: "I developed an adaptive reuse proposal for Teatro Blanquita in Mexico City, reimagining the once vibrant theater as a community centered cultural anchor that preserves memory while enabling new creation. Grounded in research on the evolution of Mexican performance ranging from pre-colonial ritual to revolutionary identity-building and feminist/queer resistance, I designed a cardinally aligned spatial framework that disrupts the existing grid and orchestrates addition and subtraction over time. It is the home for what is preserved, removed, and introduced through time. The result is a living archive and open canvas for all communities to continually shape the site's evolving artistic identity.",
@@ -173,7 +173,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "facultad-de-artes",
+    slug: "la-28-concession-stand",
     title: "LA 28 Concession Stand",
     description: {
       en: "This concession stand proposal for the LA 2028 Olympics is designed as a rest point that provides food service and restroom access while supporting a range of programmatic needs. The design explores the relationship between dimension, material, and structure to create a strong interior and exterior visual experience. With exposed wood framing, a punctured outer shell, and two primary volumes breaking through, it reads as a landmark. Built from wood, the structure is intended to be flexible after the Olympics; as the material qualities and scale make the structure easily repurposed or kept intact.",
@@ -208,7 +208,7 @@ export const projects: Project[] = [
     ],
   },
   {
-    slug: "casa-miradora",
+    slug: "alleyway",
     title: "Alleyway",
     description: {
       en: "This project treats light as the primary architectural material, shaping a vertical installation where massing is defined by the flow of illumination. A stacked composition of volumes is offset and carved to let natural and artificial light enter, spill, and cascade downward through the entire structure. From the exterior, the form reads as dense and monolithic, but is punctured by precise voids that operate as light channels.",

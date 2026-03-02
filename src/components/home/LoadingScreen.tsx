@@ -96,7 +96,7 @@ export function LoadingScreen() {
           exit={{ opacity: 0 }}
           transition={transition.section}
         >
-          <div ref={containerRef}>
+          <div ref={containerRef} className="w-[min(calc(100vw-40px),1000px)]">
             {!sequenceDone && (
               <LogoSequencePlayer
                 key={playKey}
@@ -110,8 +110,7 @@ export function LoadingScreen() {
               <motion.img
                 src="/images/logo-sequence/glb-084.png"
                 alt="GLB"
-                width={SEQUENCE_WIDTH}
-                height={SEQUENCE_HEIGHT}
+                style={{ width: "100%", maxWidth: SEQUENCE_WIDTH, aspectRatio: "1000/591" }}
                 initial={{ x: 0, y: 0, scale: 1 }}
                 animate={getFlyToAnimation()}
                 transition={transition.section}

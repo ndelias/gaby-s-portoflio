@@ -127,7 +127,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
         ref={mobileRef}
         className="fixed left-0 right-0 top-16 sm:top-20 z-[45] lg:hidden bg-white border-b border-gray-100 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
       >
-        <div className="flex gap-5 px-[var(--grid-margin)] py-3 whitespace-nowrap">
+        <div className="flex gap-5 pl-[var(--grid-margin)] py-3 whitespace-nowrap">
           {projects.map((project) => (
             <button
               key={project.slug}
@@ -142,6 +142,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
               {project.title}
             </button>
           ))}
+          <div className="shrink-0 w-[var(--grid-margin)]" aria-hidden="true" />
         </div>
       </div>
     </>

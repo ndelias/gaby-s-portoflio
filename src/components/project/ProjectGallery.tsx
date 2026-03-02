@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, type PanInfo } from "framer-motion";
 import { ScrollFade } from "@/components/ui/ScrollFade";
 import { transition } from "@/lib/motion";
 import type { ProjectImage } from "@/types";
@@ -67,12 +67,23 @@ function Lightbox({
   onNext: () => void;
 }) {
   const img = images[index];
+  const [direction, setDirection] = useState(0);
+
+  const handlePrev = useCallback(() => {
+    setDirection(-1);
+    onPrev();
+  }, [onPrev]);
+
+  const handleNext = useCallback(() => {
+    setDirection(1);
+    onNext();
+  }, [onNext]);
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowLeft") onPrev();
-      if (e.key === "ArrowRight") onNext();
+      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "ArrowRight") handleNext();
     };
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKey);
@@ -80,7 +91,12 @@ function Lightbox({
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKey);
     };
-  }, [onClose, onPrev, onNext]);
+  }, [onClose, handlePrev, handleNext]);
+
+  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (info.offset.x > 50 && index > 0) handlePrev();
+    else if (info.offset.x < -50 && index < images.length - 1) handleNext();
+  };
 
   return (
     <motion.div
@@ -110,8 +126,9 @@ function Lightbox({
 
         {/* Close — top right */}
         <button
-          className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
+          className="absolute top-4 right-4 p-2.5 rounded-full bg-white/10 sm:bg-transparent text-white/70 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
           onClick={onClose}
+          aria-label="Close lightbox"
         >
           <CloseIcon />
         </button>
@@ -119,8 +136,9 @@ function Lightbox({
         {/* Prev */}
         {index > 0 && (
           <button
-            className="absolute left-6 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
-            onClick={onPrev}
+            className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/10 sm:bg-transparent text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
+            onClick={handlePrev}
+            aria-label="Previous image"
           >
             <ArrowIcon direction="left" />
           </button>
@@ -129,15 +147,16 @@ function Lightbox({
         {/* Next */}
         {index < images.length - 1 && (
           <button
-            className="absolute right-6 top-1/2 -translate-y-1/2 text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
-            onClick={onNext}
+            className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-white/10 sm:bg-transparent text-white/50 hover:text-white transition-colors duration-[200ms] cursor-pointer pointer-events-auto"
+            onClick={handleNext}
+            aria-label="Next image"
           >
             <ArrowIcon direction="right" />
           </button>
         )}
 
         {/* Image — container sized exactly to the rendered image so no transparent dead zones */}
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" initial={false}>
           <motion.div
             key={index}
             style={{
@@ -146,16 +165,20 @@ function Lightbox({
               aspectRatio: `${img.width} / ${img.height}`,
             }}
             className="pointer-events-auto"
-            initial={{ opacity: 0, scale: 0.97 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.97 }}
+            initial={{ opacity: 0, x: direction * 60 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: direction * -60 }}
             transition={transition.element}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.2}
+            onDragEnd={handleDragEnd}
           >
             <Image
               src={img.src}
               alt={img.alt}
               fill
-              className="object-contain"
+              className="object-contain pointer-events-none"
               sizes="90vw"
               priority
             />
@@ -202,8 +225,8 @@ function GalleryImage({
         />
       </div>
 
-      {/* Title fades in on hover — space always reserved to prevent layout shift */}
-      <div className="opacity-0 group-hover/img:opacity-100 transition-opacity duration-[250ms] ease-out">
+      {/* Title — always visible on mobile, hover-reveal on desktop */}
+      <div className="lg:opacity-0 lg:group-hover/img:opacity-100 transition-opacity duration-[250ms] ease-out">
         <div className="h-px w-full bg-gray-200 mt-3" />
         <div className="flex items-center justify-between px-0 py-2.5 cursor-pointer" onClick={onClick}>
           <p className="text-[length:var(--text-label)] font-medium text-gray-500">
@@ -276,27 +299,45 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
     <>
       <div className="flex flex-col">
         {rows.map((row, rowIndex) => {
+          /* ── Mobile: every image gets its own full-width row ── */
+          const mobileImages = row.images.map((img, imgIndex) => (
+            <ScrollFade key={`${rowIndex}-m-${imgIndex}`}>
+              <div className="min-h-screen flex items-center justify-center sm:hidden">
+                <div className="max-w-[85%] mx-auto w-full">
+                  <GalleryImage
+                    img={img}
+                    sizes="100vw"
+                    onClick={() => setLightboxIndex(row.startIndex + imgIndex)}
+                  />
+                </div>
+              </div>
+            </ScrollFade>
+          ));
+
+          /* ── Desktop: preserve existing grid layouts ── */
+          let desktopRow: React.ReactNode;
+
           if (row.type === "tall-left" && row.images.length === 3) {
-            return (
-              <ScrollFade key={rowIndex}>
-                <div className="min-h-[60vh] sm:min-h-screen flex items-center justify-center">
-                  <div className="max-w-[85%] mx-auto w-full grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-[var(--grid-gutter)]">
+            desktopRow = (
+              <ScrollFade key={`${rowIndex}-d`}>
+                <div className="min-h-screen hidden sm:flex items-center justify-center">
+                  <div className="max-w-[85%] mx-auto w-full grid grid-cols-2 gap-[var(--grid-gutter)]">
                     <div>
                       <GalleryImage
                         img={row.images[0]}
-                        sizes="(max-width: 639px) 100vw, 42vw"
+                        sizes="42vw"
                         onClick={() => setLightboxIndex(row.startIndex)}
                       />
                     </div>
                     <div className="flex flex-col justify-end gap-3">
                       <GalleryImage
                         img={row.images[1]}
-                        sizes="(max-width: 639px) 100vw, 42vw"
+                        sizes="42vw"
                         onClick={() => setLightboxIndex(row.startIndex + 1)}
                       />
                       <GalleryImage
                         img={row.images[2]}
-                        sizes="(max-width: 639px) 100vw, 42vw"
+                        sizes="42vw"
                         onClick={() => setLightboxIndex(row.startIndex + 2)}
                       />
                     </div>
@@ -304,14 +345,56 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
                 </div>
               </ScrollFade>
             );
+          } else if (row.images.length === 1) {
+            const maxW = row.type === "wide" ? "max-w-[85%]" : row.type === "small" ? "max-w-[40%] sm:max-w-[40%]" : row.type === "medium" ? "max-w-[50%] sm:max-w-[50%]" : "max-w-[70%] sm:max-w-[70%]";
+            const sizes = row.type === "wide" ? "85vw" : row.type === "small" ? "40vw" : row.type === "medium" ? "50vw" : "70vw";
+            desktopRow = (
+              <ScrollFade key={`${rowIndex}-d`}>
+                <div className="min-h-screen hidden sm:flex items-center justify-center">
+                  <div className={`${maxW} mx-auto w-full`}>
+                    <GalleryImage
+                      img={row.images[0]}
+                      sizes={sizes}
+                      onClick={() => setLightboxIndex(row.startIndex)}
+                    />
+                  </div>
+                </div>
+              </ScrollFade>
+            );
+          } else {
+            const colClass = row.images.length === 3
+              ? "grid grid-cols-3 gap-[var(--grid-gutter)] items-end"
+              : "grid grid-cols-2 gap-[var(--grid-gutter)] items-end";
+
+            const sizesAttr = row.images.length === 3 ? "28vw" : "42vw";
+
+            desktopRow = (
+              <ScrollFade key={`${rowIndex}-d`}>
+                <div className="min-h-screen hidden sm:flex items-center justify-center">
+                  <div className="max-w-[85%] mx-auto w-full">
+                    <div className={colClass}>
+                      {row.images.map((img, imgIndex) => (
+                        <GalleryImage
+                          key={imgIndex}
+                          img={img}
+                          sizes={sizesAttr}
+                          onClick={() => setLightboxIndex(row.startIndex + imgIndex)}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </ScrollFade>
+            );
           }
 
+          /* Single-image rows share the same layout on both, skip duplicate */
           if (row.images.length === 1) {
-            const maxW = row.type === "wide" ? "max-w-[85%]" : row.type === "small" ? "max-w-[40%]" : row.type === "medium" ? "max-w-[50%]" : "max-w-[70%]";
-            const sizes = row.type === "wide" ? "85vw" : row.type === "small" ? "40vw" : row.type === "medium" ? "50vw" : "70vw";
+            const maxW = row.type === "wide" ? "max-w-[85%]" : row.type === "small" ? "max-w-[85%] sm:max-w-[40%]" : row.type === "medium" ? "max-w-[85%] sm:max-w-[50%]" : "max-w-[85%] sm:max-w-[70%]";
+            const sizes = row.type === "wide" ? "85vw" : row.type === "small" ? "(max-width: 639px) 85vw, 40vw" : row.type === "medium" ? "(max-width: 639px) 85vw, 50vw" : "(max-width: 639px) 85vw, 70vw";
             return (
               <ScrollFade key={rowIndex}>
-                <div className="min-h-[60vh] sm:min-h-screen flex items-center justify-center">
+                <div className="min-h-screen flex items-center justify-center">
                   <div className={`${maxW} mx-auto w-full`}>
                     <GalleryImage
                       img={row.images[0]}
@@ -324,31 +407,11 @@ export function ProjectGallery({ images }: ProjectGalleryProps) {
             );
           }
 
-          const colClass = row.images.length === 3
-            ? "grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-[var(--grid-gutter)] items-end"
-            : "grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-[var(--grid-gutter)] items-end";
-
-          const sizesAttr = row.images.length === 3
-            ? "(max-width: 639px) 100vw, 28vw"
-            : "(max-width: 639px) 100vw, 42vw";
-
           return (
-            <ScrollFade key={rowIndex}>
-              <div className="min-h-[60vh] sm:min-h-screen flex items-center justify-center">
-                <div className="max-w-[85%] mx-auto w-full">
-                  <div className={colClass}>
-                    {row.images.map((img, imgIndex) => (
-                      <GalleryImage
-                        key={imgIndex}
-                        img={img}
-                        sizes={sizesAttr}
-                        onClick={() => setLightboxIndex(row.startIndex + imgIndex)}
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </ScrollFade>
+            <React.Fragment key={rowIndex}>
+              {mobileImages}
+              {desktopRow}
+            </React.Fragment>
           );
         })}
       </div>
