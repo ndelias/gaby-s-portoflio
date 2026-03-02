@@ -114,7 +114,7 @@ export function ProjectDirectory({ projects, activeSlug }: ProjectDirectoryProps
             LinkedIn
           </a>
           <a
-            href="/resume.pdf"
+            href="https://drive.google.com/file/d/1PyPrwmrgAmXxqMMDOuE7XK1AbR5fti1V/view?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
             className="text-[length:var(--text-label)] font-medium uppercase tracking-[0.1em] text-gray-300 hover:text-blush transition-colors duration-[200ms]"
