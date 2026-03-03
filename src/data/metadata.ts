@@ -1,6 +1,6 @@
 export const siteMetadata = {
   title: "Gaby — Architecture Portfolio",
-  description: "Architecture portfolio showcasing residential, cultural, academic, commercial, and public projects across Colombia.",
-  url: "https://gaby-portfolio.com",
+  description: "Architecture portfolio showcasing the work of Gabriella Batista.",
+  url: "https://www.gabriella-batista.com",
   author: "Gaby",
 };
