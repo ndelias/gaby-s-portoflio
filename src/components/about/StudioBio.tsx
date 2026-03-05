@@ -19,7 +19,7 @@ export function StudioBio() {
         </ExternalLink>
         {" — "}
         {t.about.resumeCta}{" "}
-        <ExternalLink href="https://drive.google.com/file/d/1PyPrwmrgAmXxqMMDOuE7XK1AbR5fti1V/view?usp=sharing">
+        <ExternalLink href="https://drive.google.com/file/d/1DX0oQVCOb-3o67F5T10EU8pZgB-kCYbG/view">
           {t.about.resumeLabel}
         </ExternalLink>
       </Body>
